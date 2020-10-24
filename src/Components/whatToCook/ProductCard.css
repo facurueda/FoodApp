@@ -1,0 +1,14 @@
+.productCardContainer{
+      margin: .3vw;
+}
+.productImage{
+      max-width: 5vw;
+      height: 5vw; 
+      object-fit: cover;
+      border-radius: 20%;
+}
+.productName{
+      margin-left: .5vw;
+      font-size: 1vw;
+      width: 5vw;
+}

@@ -1,0 +1,18 @@
+.navBarContainer{
+    display: flex;
+    width: 4vw;
+    height: 100%;
+    background-color: #184c7c;
+}
+.avatarContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4vw;
+    height: 4vw;
+    
+}
+.userIcon{
+    width: 3vw;
+    height: 3vw;
+}

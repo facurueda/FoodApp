@@ -1,0 +1,20 @@
+.modal-content{
+}
+.whatToCookContainer{
+    height: 15vw;
+    background-color: bisque;
+}
+.optionsContainer{
+      height: 100%;
+}
+.modal-body{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 25vw;
+      min-height: 10vw;
+
+}
+.modal-footer{
+      justify-content: space-between;
+}

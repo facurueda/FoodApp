@@ -1,0 +1,9 @@
+.homeContainer{
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    justify-content: space-around;
+    margin-left: 5vw;
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+}
