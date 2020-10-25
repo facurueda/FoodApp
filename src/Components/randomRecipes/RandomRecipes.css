@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
 .randomRecipesContainer {
       display: flex;
       width: 100%;
       justify-content: space-between;
-
 }
 .setBlur{
       display: flex;
@@ -12,8 +13,6 @@
 }
 .cardContainer {
       width: 20vw;
-      /* width: 50%; */
-      /* height: 50%; */
 }
 .cardProductImage {
       width: 20vw;
@@ -27,11 +26,12 @@
       height: 5vw;
 }
 .cardTitleContainer {
+      font-family: Acme;
       display: flex;
       justify-content: center;
       align-items: center;
       max-height: 5vw;
-      font-size: 0.8vw;
+      font-size: 1.3vw;
       margin: 0;
 }
 .buttonAleatoryRecipes{

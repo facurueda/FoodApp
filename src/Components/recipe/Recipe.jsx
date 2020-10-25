@@ -19,6 +19,7 @@ const Recipe = (props) => {
       const decimalFractions = (number) => {
             if(number == '0.6666666666666666') return '2/3';
             else if (number == '0.3333333333333333') return '1/3'
+            else if (number == '1.3333333333333333') return '1 1/3'
             else {
                   return number;
             }
@@ -33,7 +34,7 @@ const Recipe = (props) => {
                         className="fullRecipeImg"
                   />
                   <div className="textIngredients">
-                        <label>Ingredients</label>
+                        <label>Ingredients:</label>
                   </div>
                   <div className="fullRecipeIngredients">
                         {extendedIngredients.map((ingre) => {
@@ -59,7 +60,7 @@ const Recipe = (props) => {
                   </div>
 
                   <div className="textIngredients">
-                        <label>Instructions</label>
+                        <label>Instructions:</label>
                   </div>
                   {analyzedInstructions[0].steps ? (
                         <div className="fullRecipePreparation">

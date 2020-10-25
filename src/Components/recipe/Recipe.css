@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
 .fullRecipeContainer{
       margin-left: 5vw;
       display: flex;
@@ -7,6 +10,7 @@
 }
 .fullRecipeName{
       font-size: 5vw;
+      font-family: Dancing Script;
 }
 .fullRecipeImg{
       height: 15vw;
@@ -16,6 +20,7 @@
       width: 60%;
       font-size: 2vw;
       justify-content: flex-start;
+      font-family: Dancing Script;
 }
 .fullRecipeIngredients{
       display: flex;
@@ -25,6 +30,7 @@
       margin-bottom: .2vw;
 }
 .ingredientInfo{
+      font-family: Acme;
       margin: 1vw;
       display: flex;
       flex-direction: column;
@@ -38,7 +44,9 @@
       text-align: center;
 }
 .fullRecipePreparation{
-      max-width: 60%;
+      max-width: 80%;
+      font-size: 1vw;
+      font-family: Acme;
 }
 ol {
       list-style: none;
@@ -46,7 +54,7 @@ ol {
     }
     li {
       counter-increment: item;
-      margin-bottom: 5px;
+      margin-bottom: .5vw;
     }
     li:before {
       margin-right: 10px;

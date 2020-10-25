@@ -1,20 +1,26 @@
-.modal-content{
-}
 .whatToCookContainer{
-    height: 15vw;
-    background-color: bisque;
 }
-.optionsContainer{
+.modal-content {
+}
+.whatToCookContainer {
+      display: flex;
+      justify-content: center;
+      height: 15vw;
+}
+.optionsContainer {
       height: 100%;
 }
-.modal-body{
+.modal-body {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
       width: 25vw;
       min-height: 10vw;
-
 }
-.modal-footer{
+.modal-footer {
       justify-content: space-between;
+}
+.modalOpenSearchRecipesByIngredients {
+      border-radius: 50%;
+      width: 18vw;
 }

@@ -6,11 +6,10 @@ import {
       MDBModalFooter,
       MDBInput,
 } from "mdbreact";
+import SearchRecipesByIngredients from '../../Assets/Home/SearchRecipesByIngredient.png'
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
-import axios from "axios";
 import "./WhatToCook.css";
-import backgroundModal from "../../Assets/Modals/itemsFridge.jpg";
 import ProductCard from "./ProductCard";
 import {
       actionGetRecipesByProduct,
@@ -80,12 +79,12 @@ const WhatToCook = () => {
 
       return (
             <div className="whatToCookContainer">
-                  <div className="textTitleContainer">What to Cook?</div>
+                  {/* <div className="textTitleContainer">What to Cook?</div> */}
                   <div className="optionsContainer">
                         <a onClick={(e) => openModalRefrigerator()}>
                               <img
-                                    src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg"
-                                    className="img-fluid z-depth-1 rounded-circle"
+                                    src={SearchRecipesByIngredients}
+                                    className="modalOpenSearchRecipesByIngredients"
                                     alt=""
                               />
                         </a>
