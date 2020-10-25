@@ -12,7 +12,6 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "mdbreact/dist/css/mdb.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import NavBar from "./Components/navBar/NavBar";
 import Home from "./Components/home/Home";
 import Recipe from "./Components/recipe/Recipe";
 
@@ -24,6 +23,7 @@ function App() {
                               render={({ location, history }) => (
                                     <React.Fragment>
                                           <SideNav
+                                                id="nav-style"
                                                 onSelect={(selected) => {
                                                       const to = "/" + selected;
                                                       if (

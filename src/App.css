@@ -7,3 +7,7 @@ body{
 #root{
   height: 100%;
 }
+#nav-style {
+      position: fixed;
+      background: #e44745;
+  }
