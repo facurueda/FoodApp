@@ -1,4 +1,6 @@
 import {
+      DELETE_BLUR,
+      DISPLAY_NONE_BUTTON_BLUR,
       GET_ALEATORY_RECIPES, GET_RECIPES_BY_PRODUCTS, GET_SEARCH_PRODUCTS
 } from './constants';
 
@@ -11,6 +13,8 @@ const initialState = {
       searchProducts : [],
       productsInFridge : [],
       recipesByProducts : [],
+      randomRecipesBlur: 'setBlur',
+      buttonBlurDisplay: 'buttonAleatoryRecipes'
 
 }
 
@@ -30,6 +34,16 @@ const recipesReducer = (state = initialState, action) => {
                   return {
                         ...state,
                         searchProducts: action.payload
+                  }
+            case DELETE_BLUR:
+                  return {
+                        ...state,
+                        randomRecipesBlur: 'randomRecipesContainer'
+                  }
+            case DISPLAY_NONE_BUTTON_BLUR:
+                  return {
+                        ...state,
+                        buttonBlurDisplay: 'buttonDisplayNone'
                   }
             default:
                   return state;

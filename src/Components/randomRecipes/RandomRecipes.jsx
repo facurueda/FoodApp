@@ -9,12 +9,16 @@ import {
       MDBCardText,
       MDBCol,
 } from "mdbreact";
-import { actionGetAleatoryRecipes } from "../../Redux/recipesActions";
+import {
+      actionDeleteBlur,
+      actionDisplayNoneButtonBlur,
+      actionGetAleatoryRecipes,
+} from "../../Redux/recipesActions";
 import "./RandomRecipes.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const RandomRecipes = () => {
-      const history = useHistory();
+      // const history = useHistory();
       const dispatch = useDispatch();
 
       useEffect(() => {
@@ -37,17 +41,21 @@ const RandomRecipes = () => {
             getAleatoryRecipes = getAleatoryRecipes2;
       }
 
-      const [imagesWithBlur, setImagesWithBlur] = useState("setBlur");
+      const imagesWithBlur = useSelector(
+            (state) => state.recipesReducer.randomRecipesBlur
+      );
 
-      const [buttonBlur, setButtonBlur] = useState("buttonAleatoryRecipes");
+      const buttonBlur = useSelector(
+            (state) => state.recipesReducer.buttonBlurDisplay
+      );
 
       return (
             <div style={{ position: "relative" }}>
                   <button
                         className={buttonBlur}
                         onClick={(e) => {
-                              setImagesWithBlur("randomRecipesContainer");
-                              setButtonBlur("buttonDisplayNone");
+                              dispatch(actionDeleteBlur());
+                              dispatch(actionDisplayNoneButtonBlur());
                         }}
                   >
                         CLEAN
@@ -57,17 +65,20 @@ const RandomRecipes = () => {
                               return (
                                     <MDBCol>
                                           <MDBCard className="cardContainer">
-                                                <Link to={{
-                                                      pathname: '/Recipe',
-                                                      state: { recipe : recipe }
-
-                                                }}>
+                                                <Link
+                                                      to={{
+                                                            pathname: "/Recipe",
+                                                            state: {
+                                                                  recipe: recipe,
+                                                            },
+                                                      }}
+                                                >
                                                       <MDBCardImage
                                                             className="cardProductImage"
                                                             src={recipe.image}
                                                             waves
                                                       />
-                                                </Link>      
+                                                </Link>
                                                 <MDBCardBody className="cardBodyRecipes">
                                                       <MDBCardTitle className="cardTitleContainer">
                                                             {recipe.title}

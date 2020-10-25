@@ -15,7 +15,6 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import NavBar from "./Components/navBar/NavBar";
 import Home from "./Components/home/Home";
 import Recipe from "./Components/recipe/Recipe";
-// import ModalPage from "./Components/whatToCook/refrigerator/ModalRefrigerator";
 
 function App() {
       return (

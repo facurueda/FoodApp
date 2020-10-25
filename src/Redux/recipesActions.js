@@ -1,5 +1,7 @@
 import axios from "axios";
 import {
+      DELETE_BLUR,
+      DISPLAY_NONE_BUTTON_BLUR,
       GET_ALEATORY_RECIPES,
       GET_RECIPES_BY_PRODUCTS,
       GET_SEARCH_PRODUCTS,
@@ -58,6 +60,22 @@ export const actionSearchProduct = (product) => {
             });
       };
 };
+
+export const actionDeleteBlur = () => {
+      return (dispatch) => {
+            dispatch({
+                  type: DELETE_BLUR,
+            });
+      }
+}
+
+export const actionDisplayNoneButtonBlur = () => {
+      return (dispatch) => {
+            dispatch({
+                  type: DISPLAY_NONE_BUTTON_BLUR
+            })
+      }
+}
 
 // export const actionDeleteUser = (user) => {
 //       return (dispatch) => {
