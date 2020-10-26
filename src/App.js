@@ -13,6 +13,7 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "mdbreact/dist/css/mdb.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./Components/home/Home";
+import SearchRecipesByIngredients from './Components/searchByIngredients/SearchByIngredients'
 import Recipe from "./Components/recipe/Recipe";
 
 function App() {
@@ -76,7 +77,7 @@ function App() {
                                                       path="/Recipe"
                                                       component={Recipe}
                                                 />
-                                                {/* <Route path='/a' component={ModalPage} /> */}
+                                                <Route path='/SearchRecipeByIngredients' component={SearchRecipesByIngredients} />
                                                 {/* <Route path="/" exact component={props => <RootComponent />} /> */}
                                                 {/* <Route path="/home" component={props => <Home />} /> */}
                                                 {/* <Route path="/devices" component={props => <Devices />} /> */}

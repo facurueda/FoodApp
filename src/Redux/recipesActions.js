@@ -3,7 +3,7 @@ import {
       DELETE_BLUR,
       DISPLAY_NONE_BUTTON_BLUR,
       GET_ALEATORY_RECIPES,
-      GET_RECIPES_BY_PRODUCTS,
+      GET_RECIPES_BY_INGREDIENTS,
       GET_SEARCH_PRODUCTS,
 } from "./constants";
 var qs = require("qs");
@@ -31,15 +31,15 @@ export const actionGetAleatoryRecipes = () => {
       };
 };
 
-export const actionGetRecipesByProduct = (products) => {
+export const actionGetRecipesByIngredients = (ingredients) => {
       return (dispatch) => {
             var config = {
                   method: "get",
-                  url: `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${APIKEY}&ingredients=${products}&number=4`,
+                  url: `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${APIKEY}&ingredients=${ingredients}&number=4`,
             };
             axios(config).then((res) => {
                   dispatch({
-                        type: GET_RECIPES_BY_PRODUCTS,
+                        type: GET_RECIPES_BY_INGREDIENTS,
                         payload: res.data,
                   });
             });

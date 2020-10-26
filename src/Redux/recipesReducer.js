@@ -1,7 +1,7 @@
 import {
       DELETE_BLUR,
       DISPLAY_NONE_BUTTON_BLUR,
-      GET_ALEATORY_RECIPES, GET_RECIPES_BY_PRODUCTS, GET_SEARCH_PRODUCTS
+      GET_ALEATORY_RECIPES, GET_RECIPES_BY_INGREDIENTS, GET_SEARCH_PRODUCTS
 } from './constants';
 
 // import initialRecipesTEST from '../Components/randomRecipes/RESPONSE.json'
@@ -12,7 +12,7 @@ const initialState = {
       aleatoryRecipesHome : [],
       searchProducts : [],
       productsInFridge : [],
-      recipesByProducts : [],
+      recipesByIngredients : [],
       randomRecipesBlur: 'setBlur',
       buttonBlurDisplay: 'buttonAleatoryRecipes'
 
@@ -25,10 +25,10 @@ const recipesReducer = (state = initialState, action) => {
                         ...state,
                         aleatoryRecipesHome: action.payload
                   }
-            case GET_RECIPES_BY_PRODUCTS:
+            case GET_RECIPES_BY_INGREDIENTS:
                   return {
                         ...state,
-                        recipesByProducts: action.payload
+                        recipesByIngredients: action.payload
                   }
             case GET_SEARCH_PRODUCTS:
                   return {

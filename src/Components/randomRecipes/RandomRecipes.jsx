@@ -25,21 +25,7 @@ const RandomRecipes = () => {
             dispatch(actionGetAleatoryRecipes());
       }, []);
 
-      let getAleatoryRecipes;
-
-      let getAleatoryRecipes1 = useSelector(
-            (state) => state.recipesReducer.recipesByProducts
-      );
-
-      let getAleatoryRecipes2 = useSelector(
-            (state) => state.recipesReducer.aleatoryRecipesHome
-      );
-
-      if (getAleatoryRecipes1.length > 0) {
-            getAleatoryRecipes = getAleatoryRecipes1;
-      } else {
-            getAleatoryRecipes = getAleatoryRecipes2;
-      }
+      let getAleatoryRecipes = useSelector(state => state.recipesReducer.aleatoryRecipesHome)
 
       const imagesWithBlur = useSelector(
             (state) => state.recipesReducer.randomRecipesBlur

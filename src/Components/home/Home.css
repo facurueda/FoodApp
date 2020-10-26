@@ -4,8 +4,19 @@
       background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
+      
       height: 100%;
-      justify-content: space-around;
+      justify-content: center;
+      align-items: center;
       padding-left: 5vw;
       padding-bottom: 3vw;
+}
+
+.searchRecipes{
+      display: flex;
+
+}
+.modalOpenSearchRecipesByIngredients {
+      border-radius: 50%;
+      width: 18vw;
 }
