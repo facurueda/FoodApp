@@ -1,0 +1,80 @@
+.containerSearchByIngredients {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      background-image: url("../../Assets/Home/HomeBackground.png");
+}
+.containerInputSearch {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3vw;
+      width: 60vw;
+      height: 3vw;
+      border-bottom: #df807f 0.5vw solid;
+      border-radius: 0.3vw;
+      background-color: white;
+}
+.inputSearchByIngredients {
+      border: none;
+      width: 50vw;
+      height: 3vw;
+      padding-left: 1vw;
+      outline: none;
+}
+.buttonSearchByIngredients {
+      border: none;
+      height: 3vw;
+      width: 10vw;
+      background-color: white;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+
+.containerIngredients{
+      display: flex;
+      flex-wrap: wrap;
+      columns: 6;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2vw;
+      margin-bottom: 2vw;
+      padding: .5vw;
+      max-width: 70vw;
+      border-radius: 1vw;
+      background-color: white;
+}
+
+.containerRecipesByIngredients{
+      margin-left: 5vw;
+      display: flex;
+      flex-wrap: wrap;
+      columns: 4;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+
+.cardContainer{
+      margin-bottom: 3vw;
+}
+
+
+
+.optionsContainer {
+      height: 100%;
+}
+.modal-body {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 25vw;
+      min-height: 10vw;
+}
+.modal-footer {
+      justify-content: space-between;
+}
+.modalOpenSearchRecipesByIngredients {
+      border-radius: 50%;
+      width: 18vw;
+}
