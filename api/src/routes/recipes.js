@@ -10,7 +10,6 @@ const client = redis.createClient(REDIS_PORT);
 const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
 
 const CACHE = (req, res, next) => {
-
       const KEY = Object.values(req.params)[0];
 
       client.get(KEY, (err, data) => {
@@ -25,7 +24,6 @@ const CACHE = (req, res, next) => {
 };
 
 server.get("/random/:typeRecipe", CACHE, async (req, res) => {
-
       try {
             console.log("Fetching Data...");
 
@@ -46,17 +44,14 @@ server.get("/random/:typeRecipe", CACHE, async (req, res) => {
 });
 
 server.post("/search/:byIngredients", async (req, res) => {
-
       // QUITE EL CACHE PORQUE SI NO NO FUNCIONA!
 
       try {
-
-            console.log(req.body)
-
+            console.log(req.body);
 
             const { byIngredients } = req.params;
 
-            const { ingredients } = req.body
+            const { ingredients } = req.body;
 
             const response = await fetch(
                   `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${APIKEY}&ingredients=${ingredients}&number=8`
@@ -72,9 +67,9 @@ server.post("/search/:byIngredients", async (req, res) => {
       }
 });
 
-server.get('/',(req, res) => {
-      console.log('ENTRO')
-})
+server.get("/", (req, res) => {
+      console.log("ENTRO");
+});
 
 // server.get("/randomRecipes", cache, (req, res) => {
 //       var config = {
