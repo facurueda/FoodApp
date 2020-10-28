@@ -65,8 +65,8 @@
 
 const server = require("./src/app.js");
 
+const PORT = process.env.PORT || 5000;
 
-
-server.listen(3000, () => {
-      console.log("%s listening at 3000"); // eslint-disable-line no-console
+server.listen(PORT, () => {
+      console.log("%s listening at 5000"); // eslint-disable-line no-console
 });

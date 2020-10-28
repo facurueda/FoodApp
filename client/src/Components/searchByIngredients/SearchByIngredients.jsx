@@ -44,15 +44,12 @@ const SearchByIngredients = () => {
                         ingredientPhoto: `https://spoonacular.com/cdn/ingredients_100x100/${ingredient[0].image}`,
                   },
             ]);
+            namesIngredients.push("+" + valueSearch.toUpperCase());
       };
 
       ////////////////////////////////////////////////// -- States and Functions Recipes By Ingredients  -- //////////////////////////////////////////////////
 
       let namesIngredients = [];
-
-      listIngredients.map((e) => {
-            namesIngredients.push("+" + e.ingredientName);
-      });
 
       const actionSendProductToFindRecipes = () => {
             dispatch(
@@ -134,12 +131,21 @@ const SearchByIngredients = () => {
                                           <MDBCard className="cardContainer">
                                                 <Link
                                                       to={{
-                                                            pathname: "/Spinner",
-                                                            state: {
-                                                            
-                                                            },
+                                                            pathname:
+                                                                  "/Spinner",
+                                                            state: {},
                                                       }}
-                                                      onClick={e => {dispatch(actionGetRecipeToShowByIngredients(recipe.id)); console.log('recipe', recipe)}}
+                                                      onClick={(e) => {
+                                                            dispatch(
+                                                                  actionGetRecipeToShowByIngredients(
+                                                                        recipe.id
+                                                                  )
+                                                            );
+                                                            console.log(
+                                                                  "recipe",
+                                                                  recipe
+                                                            );
+                                                      }}
                                                 >
                                                       <MDBCardImage
                                                             className="cardProductImage"

@@ -9,20 +9,17 @@ import {
       GET_RECIPE_BY_INGREDIENTS,
 } from "./constants";
 var qs = require("qs");
-axios.defaults.withCrendentails = true;
 
 const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
+
+const URL = "http://localhost:5000/";
 
 // FUNCTION TO GET ALEATORY RECIPES
 export const actionGetAleatoryRecipes = () => {
       return (dispatch) => {
             var config = {
                   method: "get",
-                  url: `https://api.spoonacular.com/recipes/random?apiKey=${APIKEY}&number=4`,
-                  headers: {
-                        Cookie:
-                              "__cfduid=d68bdc4452e6af9f5c2f2e24fad7607e41602855582",
-                  },
+                  url: URL + "recipes/random/home",
             };
             axios(config).then((res) => {
                   dispatch({
@@ -35,9 +32,12 @@ export const actionGetAleatoryRecipes = () => {
 
 export const actionGetRecipesByIngredients = (ingredients) => {
       return (dispatch) => {
+            var data = qs.stringify({ingredients});
+            console.log(ingredients)
             var config = {
-                  method: "get",
-                  url: `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${APIKEY}&ingredients=${ingredients}&number=8`,
+                  method: "post",
+                  url: URL + "recipes/search/byIngredients",
+                  data: data,
             };
             axios(config).then((res) => {
                   dispatch({
@@ -52,7 +52,7 @@ export const actionGetRecipeToShowByIngredients = (id) => {
       return (dispatch) => {
             var config = {
                   method: "get",
-                  url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=${APIKEY}`
+                  url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=${APIKEY}`,
             };
             axios(config).then((res) => {
                   dispatch({
@@ -60,17 +60,17 @@ export const actionGetRecipeToShowByIngredients = (id) => {
                         payload: res.data,
                   });
             });
-      }
-}
+      };
+};
 
 export const actionDeleteIngredientsAndRecipes = () => {
       return (dispatch) => {
-            console.log('entro en delete')
+            console.log("entro en delete");
             dispatch({
-                  type: DELETE_INGREDIENTS_AND_RECIPES
-            })
-      }
-}
+                  type: DELETE_INGREDIENTS_AND_RECIPES,
+            });
+      };
+};
 
 export const actionSearchProduct = (product) => {
       return (dispatch) => {
@@ -92,16 +92,16 @@ export const actionDeleteBlur = () => {
             dispatch({
                   type: DELETE_BLUR,
             });
-      }
-}
+      };
+};
 
 export const actionDisplayNoneButtonBlur = () => {
       return (dispatch) => {
             dispatch({
-                  type: DISPLAY_NONE_BUTTON_BLUR
-            })
-      }
-}
+                  type: DISPLAY_NONE_BUTTON_BLUR,
+            });
+      };
+};
 
 // export const actionDeleteUser = (user) => {
 //       return (dispatch) => {
