@@ -67,6 +67,19 @@ server.post("/search/:byIngredients", async (req, res) => {
       }
 });
 
+server.post("/toShow", async (req, res) => {
+
+      const { id } = req.body;
+
+      const response = await fetch(
+            `https://api.spoonacular.com/recipes/${id}/information?apiKey=${APIKEY}`
+      );
+
+      const data = await response.json();
+
+      res.send(data)
+});
+
 server.get("/", (req, res) => {
       console.log("ENTRO");
 });

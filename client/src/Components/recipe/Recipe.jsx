@@ -10,19 +10,6 @@ const Recipe = (props) => {
             (state) => state.recipesReducer.recipeToShow
       );
 
-
-      // useEffect(() => {
-      //       dispatch(
-      //             actionGetRecipeToShowByIngredients(
-      //                   props.location.state.recipeId
-      //             )
-      //       );
-      // }, []);
-
-      console.log("recipeFind", useSelector(
-            (state) => state.recipesReducer.recipeToShow
-      ));
-
       function test() {
             return { __html: recipeByIngredient.instructions };
       }
@@ -38,12 +25,27 @@ const Recipe = (props) => {
 
       return (
             <div className="fullRecipeContainer">
+            {console.log('recipeBy', recipeByIngredient)}
                   <div className="fullRecipeName">{recipeByIngredient.title}</div>
-                  <img
-                        src={recipeByIngredient.image}
-                        alt="RecipeImage"
-                        className="fullRecipeImg"
-                  />
+                  <div className="imageTimeContainer">
+                        <img
+                              src={recipeByIngredient.image}
+                              alt="RecipeImage"
+                              className="fullRecipeImg"
+                        />
+                        <div className="timeReady">
+                              <div className="preparation">
+                                    {recipeByIngredient.readyInMinutes}
+                              </div>
+                              <div className="servings">
+                                    {recipeByIngredient.servings}
+                              </div>
+                              <div className="nutritionInfo">
+                                    <button>Nutrition-Info</button> 
+                              </div>
+                        </div>
+                  </div>
+
                   <div className="textIngredients">
                         <label>Ingredients:</label>
                   </div>

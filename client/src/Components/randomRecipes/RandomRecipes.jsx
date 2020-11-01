@@ -12,6 +12,7 @@ import {
       actionDeleteBlur,
       actionDisplayNoneButtonBlur,
       actionGetAleatoryRecipes,
+      actionGetRecipeToShowByIngredients,
 } from "../../Redux/recipesActions";
 import "./RandomRecipes.css";
 import { Link } from "react-router-dom";
@@ -24,7 +25,9 @@ const RandomRecipes = () => {
             dispatch(actionGetAleatoryRecipes());
       }, []);
 
-      let getAleatoryRecipes = useSelector(state => state.recipesReducer.aleatoryRecipesHome)
+      let getAleatoryRecipes = useSelector(
+            (state) => state.recipesReducer.aleatoryRecipesHome
+      );
 
       const imagesWithBlur = useSelector(
             (state) => state.recipesReducer.randomRecipesBlur
@@ -52,19 +55,25 @@ const RandomRecipes = () => {
                                           <MDBCard className="cardContainer">
                                                 <Link
                                                       to={{
-                                                            pathname: "/Recipe",
+                                                            pathname:
+                                                                  "/Spinner",
                                                             state: {
                                                                   recipe: recipe,
                                                             },
                                                       }}
-                                                      onClick= { e => console.log('ENTROOOO')}
+                                                      onClick={(e) => {
+                                                            dispatch(
+                                                                  actionGetRecipeToShowByIngredients(
+                                                                        recipe.id
+                                                                  )
+                                                            );
+                                                      }}
                                                 >
                                                       <MDBCardImage
                                                             className="cardProductImage"
                                                             src={recipe.image}
                                                             waves
                                                       />
-                                                      <button onClick={e => console.log('recipeCard', recipe)}>TEST</button>
                                                 </Link>
                                                 <MDBCardBody className="cardBodyRecipes">
                                                       <MDBCardTitle className="cardTitleContainer">

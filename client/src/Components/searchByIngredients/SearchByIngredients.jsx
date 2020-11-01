@@ -22,9 +22,10 @@ const SearchByIngredients = () => {
 
       ////////////////////////////////////////////////// -- States and Functions Ingredients  -- //////////////////////////////////////////////////
 
+      const [valueSearch, setValueSearch] = useState("");
       const [listIngredients, setListIngredients] = useState([]);
 
-      const [valueSearch, setValueSearch] = useState("");
+      const [namesIngredients, setNamesIngredients] = useState([]);
 
       const listProductSearch = useSelector(
             (state) => state.recipesReducer.searchProducts
@@ -33,6 +34,7 @@ const SearchByIngredients = () => {
       const onChangeProductSearch = (e) => {
             setValueSearch(e.target.value);
             dispatch(actionSearchProduct(e.target.value));
+            
       };
 
       const getProductImage = (ingredient) => {
@@ -43,18 +45,9 @@ const SearchByIngredients = () => {
                         ingredientPhoto: `https://spoonacular.com/cdn/ingredients_100x100/${ingredient[0].image}`,
                   },
             ]);
-            namesIngredients.push("+" + valueSearch.toUpperCase());
       };
 
       ////////////////////////////////////////////////// -- States and Functions Recipes By Ingredients  -- //////////////////////////////////////////////////
-
-      let namesIngredients = [];
-
-      const actionSendProductToFindRecipes = () => {
-            dispatch(
-                  actionGetRecipesByIngredients(namesIngredients.toString())
-            );
-      };
 
       const recipesByIngredients = useSelector(
             (state) => state.recipesReducer.recipesByIngredients
@@ -73,8 +66,14 @@ const SearchByIngredients = () => {
                                                       valueSearch.toLowerCase()
                                           )
                                     );
+                                    setNamesIngredients([
+                                          ...namesIngredients,
+                                          "+" + valueSearch.toUpperCase(),
+                                    ]);
                                     setValueSearch("");
-                                    actionSendProductToFindRecipes();
+                                    dispatch(
+                                          actionGetRecipesByIngredients(namesIngredients.toString())
+                                    );
                               }}
                         >
                               <input

@@ -9,7 +9,7 @@ const SpinnerPage = () => {
       useEffect(() => {
             setTimeout(() => {
                   history.push('/Recipe')
-            }, 400)
+            }, 1500)
       }, [])
       
       return (

@@ -33,7 +33,6 @@ export const actionGetAleatoryRecipes = () => {
 export const actionGetRecipesByIngredients = (ingredients) => {
       return (dispatch) => {
             var data = qs.stringify({ingredients});
-            console.log(ingredients)
             var config = {
                   method: "post",
                   url: URL + "recipes/search/byIngredients",
@@ -50,11 +49,14 @@ export const actionGetRecipesByIngredients = (ingredients) => {
 
 export const actionGetRecipeToShowByIngredients = (id) => {
       return (dispatch) => {
+            var data = qs.stringify({id})
             var config = {
-                  method: "get",
-                  url: `https://api.spoonacular.com/recipes/${id}/information?apiKey=${APIKEY}`,
+                  method: "post",
+                  url: URL + 'recipes/toShow',
+                  data: data,
             };
             axios(config).then((res) => {
+                  console.log('respuesta', res)
                   dispatch({
                         type: GET_RECIPE_BY_INGREDIENTS,
                         payload: res.data,
