@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const routes = require('./routes/index.js');
 const cors = require('cors');
 var logger = require('morgan')
+// require('./db.js')
 
 const server = express();
 server.name = 'API';

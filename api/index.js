@@ -64,9 +64,16 @@
 // });
 
 const server = require("./src/app.js");
+require("dotenv/config");
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-      console.log("%s listening at 5000"); // eslint-disable-line no-console
+const { conn } = require("./src/db");
+// Syncing all the models at once.
+// { force: true }
+
+conn.sync({force: true}).then(() => {
+      server.listen(PORT, () => {
+            console.log("%s listening at 5000"); // eslint-disable-line no-console
+      });
 });

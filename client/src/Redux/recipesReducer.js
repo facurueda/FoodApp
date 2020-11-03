@@ -6,6 +6,7 @@ import {
       GET_SEARCH_PRODUCTS,
       DELETE_INGREDIENTS_AND_RECIPES,
       GET_RECIPE_BY_INGREDIENTS,
+      GET_NUTRITIONAL_INFO,
 } from "./constants";
 
 // import initialRecipesTEST from '../Components/randomRecipes/RESPONSE.json'
@@ -20,6 +21,7 @@ const initialState = {
       recipeToShow : [],
       randomRecipesBlur: "setBlur",
       buttonBlurDisplay: "buttonAleatoryRecipes",
+      nutritionalInfo: []
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -59,6 +61,11 @@ const recipesReducer = (state = initialState, action) => {
                         ...state,
                         buttonBlurDisplay: "buttonDisplayNone",
                   };
+            case GET_NUTRITIONAL_INFO:
+                  return {
+                        ...state,
+                        nutritionalInfo: action.payload
+                  }
             default:
                   return state;
       }

@@ -12,6 +12,7 @@ import {
       actionDeleteBlur,
       actionDisplayNoneButtonBlur,
       actionGetAleatoryRecipes,
+      actionGetNutritionalInfo,
       actionGetRecipeToShowByIngredients,
 } from "../../Redux/recipesActions";
 import "./RandomRecipes.css";
@@ -61,12 +62,15 @@ const RandomRecipes = () => {
                                                                   recipe: recipe,
                                                             },
                                                       }}
-                                                      onClick={(e) => {
+                                                      onClick={e => {
                                                             dispatch(
                                                                   actionGetRecipeToShowByIngredients(
                                                                         recipe.id
-                                                                  )
+                                                                  ),
                                                             );
+                                                            dispatch(actionGetNutritionalInfo(
+                                                                  recipe.id
+                                                            ))
                                                       }}
                                                 >
                                                       <MDBCardImage

@@ -7,6 +7,7 @@ import {
       GET_SEARCH_PRODUCTS,
       DELETE_INGREDIENTS_AND_RECIPES,
       GET_RECIPE_BY_INGREDIENTS,
+      GET_NUTRITIONAL_INFO,
 } from "./constants";
 var qs = require("qs");
 
@@ -32,7 +33,7 @@ export const actionGetAleatoryRecipes = () => {
 
 export const actionGetRecipesByIngredients = (ingredients) => {
       return (dispatch) => {
-            var data = qs.stringify({ingredients});
+            var data = qs.stringify({ ingredients });
             var config = {
                   method: "post",
                   url: URL + "recipes/search/byIngredients",
@@ -49,14 +50,14 @@ export const actionGetRecipesByIngredients = (ingredients) => {
 
 export const actionGetRecipeToShowByIngredients = (id) => {
       return (dispatch) => {
-            var data = qs.stringify({id})
+            var data = qs.stringify({ id });
             var config = {
                   method: "post",
-                  url: URL + 'recipes/toShow',
+                  url: URL + "recipes/toShow",
                   data: data,
             };
             axios(config).then((res) => {
-                  console.log('respuesta', res)
+                  console.log("respuesta", res);
                   dispatch({
                         type: GET_RECIPE_BY_INGREDIENTS,
                         payload: res.data,
@@ -83,6 +84,26 @@ export const actionSearchProduct = (product) => {
             axios(config).then((res) => {
                   dispatch({
                         type: GET_SEARCH_PRODUCTS,
+                        payload: res.data,
+                  });
+            });
+      };
+};
+
+export const actionGetNutritionalInfo = (id) => {
+      return (dispatch) => {
+            var data = qs.stringify({ id });
+            var config = {
+                  method: 'post',
+                  url: URL + 'recipes/nutritionalInfo',
+                  headers: { 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  },
+                  data : data
+                };
+            axios(config).then((res) => {
+                  dispatch({
+                        type: GET_NUTRITIONAL_INFO,
                         payload: res.data,
                   });
             });

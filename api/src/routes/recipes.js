@@ -2,6 +2,8 @@ const server = require("express").Router();
 const redis = require("redis");
 const fetch = require("node-fetch");
 const axios = require("axios");
+// const User = require('../models/User')
+
 
 const REDIS_PORT = process.env.PORT || 6379;
 
@@ -80,9 +82,27 @@ server.post("/toShow", async (req, res) => {
       res.send(data)
 });
 
-server.get("/", (req, res) => {
-      console.log("ENTRO");
-});
+server.post('/nutritionalInfo', async (req, res) => {
+
+      console.log('body', req.body)
+
+      const { id } = req.body;
+
+      const response = await fetch(
+            `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=${APIKEY}`
+      );
+
+      const data = await response.json();
+
+      res.send(data);
+})
+
+// server.post("/", async (req, res) => {
+//       const myUser = new User(req.body)
+//       await myUser.save();
+//       res.send(myUser)
+//       console.log("ENTRO");
+// });
 
 // server.get("/randomRecipes", cache, (req, res) => {
 //       var config = {

@@ -12,8 +12,23 @@
       font-size: 5vw;
       font-family: Dancing Script;
 }
+.imageTimeContainer{
+      display: flex;
+      width: 70%;
+      justify-content: center;
+}
 .fullRecipeImg{
       height: 15vw;
+      border-radius: 1vw;
+}
+.timeReady{
+      display: flex;
+      flex-direction: column;
+      width: 20vw;
+      justify-content: space-around;
+      align-items: center;
+      font-family: Acme;
+      font-size: 1.5vw;
 }
 .textIngredients{
       display: flex;
