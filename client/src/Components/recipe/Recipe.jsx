@@ -10,7 +10,16 @@ import {
 } from "mdbreact";
 import { actionGetRecipeToShowByIngredients } from "../../Redux/recipesActions";
 import "./Recipe.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import { actionSendDataShoppingList } from "../../Redux/shoppingListActions";
+
+
 const Recipe = (props) => {
+
+      const dispatch = useDispatch()
+
+      const { user, isAuthenticated, isLoading } = useAuth0();
+      
       const recipeByIngredient = useSelector(
             (state) => state.recipesReducer.recipeToShow
       );
@@ -23,11 +32,13 @@ const Recipe = (props) => {
             return { __html: recipeByIngredient.instructions };
       }
 
-      const [servingsNumber, setServingsNumber] = useState(recipeByIngredient.servings);
+      const [servingsNumber, setServingsNumber] = useState(
+            recipeByIngredient.servings
+      );
 
       const decimalFractions = (number) => {
-
-            let numberToShow = (number / recipeByIngredient.servings ) * servingsNumber
+            let numberToShow =
+                  (number / recipeByIngredient.servings) * servingsNumber;
 
             return numberToShow;
 
@@ -100,9 +111,21 @@ const Recipe = (props) => {
 
                   <div className="textIngredients">
                         <label>Ingredients:</label>
-                        <button onClick={e => setServingsNumber(servingsNumber-1)}>-</button>
+                        <button
+                              onClick={(e) =>
+                                    setServingsNumber(servingsNumber - 1)
+                              }
+                        >
+                              -
+                        </button>
                         <div>{servingsNumber}</div>
-                        <button onClick={e => setServingsNumber(servingsNumber+1)}>+</button>
+                        <button
+                              onClick={(e) =>
+                                    setServingsNumber(servingsNumber + 1)
+                              }
+                        >
+                              +
+                        </button>
                   </div>
                   <div className="fullRecipeIngredients">
                         {recipeByIngredient.extendedIngredients.map((ingre) => {
@@ -127,7 +150,16 @@ const Recipe = (props) => {
                   </div>
 
                   <div className="shoppingContainer">
-                        <button>Add all ingredient to shopping list</button>
+                        <button
+                              onClick={e => {
+                                    /* Action to Create ShoppingList in DB */
+                                    /* recipeByIngredient.extendedIngredients */
+
+                                    dispatch(actionSendDataShoppingList(user.email, recipeByIngredient))
+                                    console.log('user', user.email, 'recypeByIngredient', recipeByIngredient)
+
+                              }}
+                        >Add all ingredient to shopping list</button>
                   </div>
 
                   <div className="textIngredients">

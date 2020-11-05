@@ -16,58 +16,23 @@ import Home from "./Components/home/Home";
 import SearchRecipesByIngredients from './Components/searchByIngredients/SearchByIngredients'
 import Recipe from "./Components/recipe/Recipe";
 import SpinnerPage from "./Components/spinnerPage/Spinner";
+import ItemList from "./Components/shoppingList/ItemList";
+
+import { useAuth0 } from "@auth0/auth0-react";
+import NavBar from "./Components/navBar/NavBar";
+import ShoppingList from "./Components/shoppingList/ShoppingList";
 
 function App() {
+
+      const { loginWithRedirect } = useAuth0();
+
       return (
-            <div style={{ height: "100%" }}>
+            <div style={{ height: "100%", display:'flex' }}>
                   <Router>
                         <Route
                               render={({ location, history }) => (
                                     <React.Fragment>
-                                          <SideNav
-                                                id="nav-style"
-                                                onSelect={(selected) => {
-                                                      const to = "/" + selected;
-                                                      if (
-                                                            location.pathname !==
-                                                            to
-                                                      ) {
-                                                            history.push(to);
-                                                      }
-                                                }}
-                                          >
-                                                <SideNav.Toggle />
-                                                <SideNav.Nav defaultSelected="home">
-                                                      <NavItem eventKey="">
-                                                            <NavIcon>
-                                                                  <i
-                                                                        className="fa fa-fw fa-home"
-                                                                        style={{
-                                                                              fontSize:
-                                                                                    "1.75em",
-                                                                        }}
-                                                                  />
-                                                            </NavIcon>
-                                                            <NavText>
-                                                                  Home
-                                                            </NavText>
-                                                      </NavItem>
-                                                      <NavItem eventKey="devices">
-                                                            <NavIcon>
-                                                                  <i
-                                                                        className="fa fa-fw fa-device"
-                                                                        style={{
-                                                                              fontSize:
-                                                                                    "1.75em",
-                                                                        }}
-                                                                  />
-                                                            </NavIcon>
-                                                            <NavText>
-                                                                  Devices
-                                                            </NavText>
-                                                      </NavItem>
-                                                </SideNav.Nav>
-                                          </SideNav>
+                                          <NavBar/>
                                           <main style={{ height: "100%" }}>
                                                 <Route
                                                       path="/"
@@ -80,6 +45,8 @@ function App() {
                                                 />
                                                 <Route path='/SearchRecipeByIngredients' component={SearchRecipesByIngredients} />
                                                 <Route path='/Spinner' component={SpinnerPage} />
+                                                <Route path='/test' component={ItemList} />
+                                                <Route path='/shoppingList' component={ShoppingList} /> 
                                                 {/* <Route path="/" exact component={props => <RootComponent />} /> */}
                                                 {/* <Route path="/home" component={props => <Home />} /> */}
                                                 {/* <Route path="/devices" component={props => <Devices />} /> */}

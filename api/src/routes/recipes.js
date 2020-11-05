@@ -2,7 +2,10 @@ const server = require("express").Router();
 const redis = require("redis");
 const fetch = require("node-fetch");
 const axios = require("axios");
-// const User = require('../models/User')
+
+
+
+
 
 
 const REDIS_PORT = process.env.PORT || 6379;
@@ -96,6 +99,8 @@ server.post('/nutritionalInfo', async (req, res) => {
 
       res.send(data);
 })
+
+
 
 // server.post("/", async (req, res) => {
 //       const myUser = new User(req.body)
