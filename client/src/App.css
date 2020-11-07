@@ -3,14 +3,16 @@ html {
 }
 body {
       height: 100%;
+      background: #f9efbb;
 }
 #root {
       height: 100%;
       width: 100%;
+      
 }
 main {
       width: 100%;
-      /* margin-left: 5vw; */
+      margin-left: 3vw;
 }
 #nav-style {
       position: fixed;

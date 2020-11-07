@@ -1,0 +1,46 @@
+.shoppingListContainer{
+      margin-left: 5vw;
+}
+
+.shoppingListTitle{
+      text-align: center;
+      font-size: 3vw;
+}
+
+.inputToAddIngredients{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2vw;
+}
+
+.shoppingRecipesContainer{
+      display: flex;
+      justify-content: space-around;
+}
+
+.listRecipeContainerTitle{
+      text-align: center;
+      font-size: 1.5vw;
+}
+
+.ulShoppingList{
+      border: black solid 1px;
+      border-radius: .3vw;
+      width: 25vw;
+      list-style: none;
+}
+.liShoppingList {
+      border-bottom: black solid 1px;
+      padding-left: 1vw;
+      font-size: 1.1vw;
+}
+.liShoppingListCompleted{
+      border-bottom: black solid 1px;
+      padding-left: 1vw;
+      font-size: 1.1vw;
+      text-decoration: line-through;
+}
+.liContainer{
+      padding-bottom: .1vw;
+      border-left: solid red .15vw;
+}
