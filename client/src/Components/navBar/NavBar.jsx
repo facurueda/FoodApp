@@ -3,15 +3,19 @@ import "./NavBar.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import Home from "../../Assets/navBar/home.svg";
-import Login from "../../Assets/navBar/login.svg";
 import Favourites from "../../Assets/navBar/favourites.svg";
 import ShoppingList from "../../Assets/navBar/note.svg";
 import User from "../../Assets/navBar/user.svg";
+import { useDispatch } from "react-redux";
+import { actionGetActionRecipes } from "../../Redux/recipesActions";
 
 const NavBar = () => {
-      const { loginWithRedirect } = useAuth0();
+      const dispatch = useDispatch()
+      const { user, loginWithRedirect } = useAuth0();
 
       return (
+
+
             <div className="navBarContainer">
                   {/* <div className="avatarContainer">
                         <a onClick={() => loginWithRedirect()}>
@@ -37,7 +41,17 @@ const NavBar = () => {
                               pathname: "/shoppingList",
                         }}
                   >
-                        SL
+                        <img src={ShoppingList} alt='shopList' className='iconShopping' />
+                  </Link>
+                  <Link
+                        to={{
+                              pathname: "/FavouritesRecipes",
+                        }}
+                        onClick={e => {
+                              dispatch(actionGetActionRecipes(user.email));
+                        }}
+                  >
+                        <img src={Favourites} alt='favourites' className='iconFavourites' />
                   </Link>
             </div>
       );

@@ -45,3 +45,12 @@
 .buttonDisplayNone{
       display: none;
 }
+.buttonToAddFavourite{
+      height: 0;
+}
+.iconToAddFavourite{
+      width: 3vw;
+      position: relative;
+      top: -3vw;
+      right: -16.5vw;
+}

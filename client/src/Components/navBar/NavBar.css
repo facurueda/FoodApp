@@ -7,15 +7,23 @@
       padding-top: 1vw;
       width: 4vw;
       height: 100%;
-      background-color: #184c7c;
+      background-color: rgba(51, 170, 51, .1);
       z-index: 9999;
 }
 .iconUser {
+      opacity: 5;
       width: 3vw;
       height: 3vw;
-      fill: white;
 }
 .iconHome{
       width: 3vw;
       height: 3vw;
+}
+.iconShopping{
+      width: 3vw;
+      height: 3vw;
+}
+.iconFavourites{
+      height: 3vw;
+      width: 3vw;
 }

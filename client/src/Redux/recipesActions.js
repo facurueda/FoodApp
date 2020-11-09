@@ -8,8 +8,13 @@ import {
       DELETE_INGREDIENTS_AND_RECIPES,
       GET_RECIPE_BY_INGREDIENTS,
       GET_NUTRITIONAL_INFO,
+      GET_FAVOURITES_RECIPES,
+      DELETE_FAVOURITE_RECIPE
 } from "./constants";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 var qs = require("qs");
+toast.configure();
 
 const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
 
@@ -34,12 +39,14 @@ export const actionGetAleatoryRecipes = () => {
 export const actionGetRecipesByIngredients = (ingredients) => {
       return (dispatch) => {
             var data = qs.stringify({ ingredients });
+            console.log('data', data)
             var config = {
                   method: "post",
                   url: URL + "recipes/search/byIngredients",
                   data: data,
             };
             axios(config).then((res) => {
+                  console.log('res', res)
                   dispatch({
                         type: GET_RECIPES_BY_INGREDIENTS,
                         payload: res.data,
@@ -94,13 +101,13 @@ export const actionGetNutritionalInfo = (id) => {
       return (dispatch) => {
             var data = qs.stringify({ id });
             var config = {
-                  method: 'post',
-                  url: URL + 'recipes/nutritionalInfo',
-                  headers: { 
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                  method: "post",
+                  url: URL + "recipes/nutritionalInfo",
+                  headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
                   },
-                  data : data
-                };
+                  data: data,
+            };
             axios(config).then((res) => {
                   dispatch({
                         type: GET_NUTRITIONAL_INFO,
@@ -125,6 +132,117 @@ export const actionDisplayNoneButtonBlur = () => {
             });
       };
 };
+
+export const actionAddRecipeToFavourites = (
+      recipeId,
+      imageUrl,
+      recipeName,
+      mailUser
+) => {
+      return (dispatch) => {
+            var data = qs.stringify({
+                  recipeId,
+                  imageUrl,
+                  recipeName,
+                  mailUser,
+            });
+            console.log("data", data);
+            var config = {
+                  method: "POST",
+                  url: URL + "recipes/addFavourites",
+                  headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  data: data,
+            };
+            axios(config).then((res) => {
+                  console.log('respADD', res)
+
+                  if(res.data === 'Created'){
+                        toast.success(
+                              "Recipe Added to Favourites",
+                              {
+                                    position:
+                                          "top-center",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                              }
+                        );
+                  } else if(res.data === 'Duplicated'){
+                        toast.error(
+                              "You Already Have This Recipe",
+                              {
+                                    position:
+                                          "top-center",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                              }
+                        );
+                  }
+            });
+      };
+};
+
+export const actionGetActionRecipes = (email) => {
+      return (dispatch) => {
+            var data = qs.stringify({ email });
+            var config = {
+                  method: "post",
+                  url: URL + "recipes/getFavouritesRecipes",
+                  headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  data: data,
+            };
+            axios(config).then((res) => {
+                  dispatch({
+                        type: GET_FAVOURITES_RECIPES,
+                        payload: res.data,
+                  });
+            });
+      };
+}
+
+export const actionDeleteFavouriteRecipe = (recipeId, email) => {
+      return (dispatch) => {
+            var data = qs.stringify({ recipeId, email });
+            var config = {
+                  method: "delete",
+                  url: URL + "recipes/deleteFavouriteRecipe",
+                  headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  data: data,
+            };
+            axios(config).then((res) => {
+                  dispatch({
+                        type: DELETE_FAVOURITE_RECIPE,
+                        payload: res.data,
+                  })
+                  toast.success(
+                        "Recipe Deleted",
+                        {
+                              position:
+                                    "top-center",
+                              autoClose: 3000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                        }
+                  );
+            });
+      };
+}
 
 // export const actionDeleteUser = (user) => {
 //       return (dispatch) => {

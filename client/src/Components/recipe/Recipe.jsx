@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-      MDBBtn,
-      MDBModal,
-      MDBModalBody,
-      MDBModalHeader,
-      MDBModalFooter,
-} from "mdbreact";
-import { actionGetRecipeToShowByIngredients } from "../../Redux/recipesActions";
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import "./Recipe.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { actionSendDataShoppingList } from "../../Redux/shoppingListActions";
@@ -16,15 +9,25 @@ import TimerImage from "../../Assets/Home/timer.svg";
 import Servings from "../../Assets/Home/servings.svg";
 import NutritionalInfoIcon from "../../Assets/Home/nutritionalInfo.svg";
 import ShoppingListIcon from "../../Assets/Home/shoppingList.svg";
+import MinusIcon from "../../Assets/Home/minus.svg";
+import PlusIcon from "../../Assets/Home/plus.svg";
+import CaloriesIcon from "../../Assets/Nutrition/calories.svg";
+import CarbsIcon from "../../Assets/Nutrition/carbs.svg";
+import FatIcon from "../../Assets/Nutrition/fat.svg";
+import ProteinIcon from "../../Assets/Nutrition/protein.svg";
+import FavouriteIcon from "../../Assets/Recipe/heart.svg";
 import {
       FacebookShareButton,
       PinterestShareButton,
       WhatsappShareButton,
 } from "react-share";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FacebookIcon, PinterestIcon, WhatsappIcon } from "react-share";
+import { actionAddRecipeToFavourites } from "../../Redux/recipesActions";
 
 const Recipe = (props) => {
+      toast.configure();
       const dispatch = useDispatch();
 
       const { user, isAuthenticated, isLoading } = useAuth0();
@@ -44,6 +47,8 @@ const Recipe = (props) => {
       const [servingsNumber, setServingsNumber] = useState(
             recipeByIngredient.servings
       );
+
+      const [viewModifyQuantity, setViewModifyQuantity] = useState(false);
 
       const decimalFractions = (number) => {
             let numberToShow =
@@ -123,7 +128,43 @@ const Recipe = (props) => {
                                                             size={32}
                                                             round
                                                       />
-                                                </WhatsappShareButton>{" "}
+                                                </WhatsappShareButton>
+                                                <a
+                                                      onClick={(e) => {
+                                                            if (
+                                                                  isAuthenticated
+                                                            ) {
+                                                                  dispatch(
+                                                                        actionAddRecipeToFavourites(
+                                                                              recipeByIngredient.id,
+                                                                              recipeByIngredient.image,
+                                                                              recipeByIngredient.title,
+                                                                              user.email
+                                                                        )
+                                                                  );
+                                                            } else {
+                                                                  toast.error(
+                                                                        "You Must LogIn",
+                                                                        {
+                                                                              position:
+                                                                                    "top-center",
+                                                                              autoClose: 3000,
+                                                                              hideProgressBar: false,
+                                                                              closeOnClick: true,
+                                                                              pauseOnHover: true,
+                                                                              draggable: true,
+                                                                              progress: undefined,
+                                                                        }
+                                                                  );
+                                                            }
+                                                      }}
+                                                >
+                                                      <img
+                                                            src={FavouriteIcon}
+                                                            alt="favouriteIcon"
+                                                            className="favouriteIcon"
+                                                      />
+                                                </a>
                                           </div>
                                     </div>
                               </div>
@@ -131,7 +172,7 @@ const Recipe = (props) => {
                                     <img
                                           src={imageBackgroundTop}
                                           alt="recipe_image"
-                                          className="recipeImage"
+                                          className="ImageRecipeShow"
                                     />
                               </div>
                         </div>
@@ -175,26 +216,75 @@ const Recipe = (props) => {
                                           )}
                                     </div>
                                     <div className="textIngredients">
-                                          <label>Ingredients:</label>
-                                          <button
-                                                onClick={(e) =>
-                                                      setServingsNumber(
-                                                            servingsNumber - 1
-                                                      )
-                                                }
-                                          >
-                                                -
-                                          </button>
-                                          <div>{servingsNumber}</div>
-                                          <button
-                                                onClick={(e) =>
-                                                      setServingsNumber(
-                                                            servingsNumber + 1
-                                                      )
-                                                }
-                                          >
-                                                +
-                                          </button>
+                                          {viewModifyQuantity === false ? (
+                                                <div>
+                                                      <MDBBtn
+                                                            outline
+                                                            onClick={(e) =>
+                                                                  setViewModifyQuantity(
+                                                                        !viewModifyQuantity
+                                                                  )
+                                                            }
+                                                      >
+                                                            Modify Servings?
+                                                      </MDBBtn>
+                                                </div>
+                                          ) : (
+                                                <div className="modifyQuantities">
+                                                      <a
+                                                            onClick={(e) => {
+                                                                  if (
+                                                                        servingsNumber >
+                                                                        1
+                                                                  ) {
+                                                                        setServingsNumber(
+                                                                              servingsNumber -
+                                                                                    1
+                                                                        );
+                                                                  } else {
+                                                                        toast.error(
+                                                                              "You cannot have less than 1",
+                                                                              {
+                                                                                    position:
+                                                                                          "top-center",
+                                                                                    autoClose: 3000,
+                                                                                    hideProgressBar: false,
+                                                                                    closeOnClick: true,
+                                                                                    pauseOnHover: true,
+                                                                                    draggable: true,
+                                                                                    progress: undefined,
+                                                                              }
+                                                                        );
+                                                                  }
+                                                            }}
+                                                      >
+                                                            <img
+                                                                  src={
+                                                                        MinusIcon
+                                                                  }
+                                                                  alt="minus"
+                                                                  className="minusIcon"
+                                                            />
+                                                      </a>
+                                                      <div>
+                                                            {servingsNumber}
+                                                      </div>
+                                                      <a
+                                                            onClick={(e) =>
+                                                                  setServingsNumber(
+                                                                        servingsNumber +
+                                                                              1
+                                                                  )
+                                                            }
+                                                      >
+                                                            <img
+                                                                  src={PlusIcon}
+                                                                  alt="plus"
+                                                                  className="plusIcon"
+                                                            />
+                                                      </a>
+                                                </div>
+                                          )}
                                     </div>
                               </div>
                               <div className="recipeExtras">
@@ -229,13 +319,14 @@ const Recipe = (props) => {
                                                       className="nutritionImage"
                                                       src={NutritionalInfoIcon}
                                                 />
-                                                <button
+                                                <MDBBtn
+                                                      outline
                                                       onClick={(e) =>
                                                             closeModal()
                                                       }
                                                 >
-                                                      Nutrition-Info
-                                                </button>
+                                                      View-Info
+                                                </MDBBtn>
                                           </div>
                                           <div className="shoppingContainer">
                                                 <img
@@ -243,28 +334,50 @@ const Recipe = (props) => {
                                                       className="shoppingImage"
                                                       src={ShoppingListIcon}
                                                 />
-                                                <button
+                                                <MDBBtn
+                                                      outline
                                                       onClick={(e) => {
-                                                            /* Action to Create ShoppingList in DB */
-                                                            /* recipeByIngredient.extendedIngredients */
-
-                                                            dispatch(
-                                                                  actionSendDataShoppingList(
-                                                                        user.email,
-                                                                        recipeByIngredient
-                                                                  )
-                                                            );
-                                                            console.log(
-                                                                  "user",
-                                                                  user.email,
-                                                                  "recypeByIngredient",
-                                                                  recipeByIngredient
-                                                            );
+                                                            if (
+                                                                  isAuthenticated
+                                                            ) {
+                                                                  dispatch(
+                                                                        actionSendDataShoppingList(
+                                                                              user.email,
+                                                                              recipeByIngredient
+                                                                        )
+                                                                  );
+                                                                  toast.success(
+                                                                        "Recipe Added to Shopping List",
+                                                                        {
+                                                                              position:
+                                                                                    "top-center",
+                                                                              autoClose: 3000,
+                                                                              hideProgressBar: false,
+                                                                              closeOnClick: true,
+                                                                              pauseOnHover: true,
+                                                                              draggable: true,
+                                                                              progress: undefined,
+                                                                        }
+                                                                  );
+                                                            } else {
+                                                                  toast.error(
+                                                                        "You Must LogIn",
+                                                                        {
+                                                                              position:
+                                                                                    "top-center",
+                                                                              autoClose: 3000,
+                                                                              hideProgressBar: false,
+                                                                              closeOnClick: true,
+                                                                              pauseOnHover: true,
+                                                                              draggable: true,
+                                                                              progress: undefined,
+                                                                        }
+                                                                  );
+                                                            }
                                                       }}
                                                 >
-                                                      Add all ingredient to
-                                                      shopping list
-                                                </button>
+                                                      Add To ShoppingList
+                                                </MDBBtn>
                                           </div>
                                     </div>
                               </div>
@@ -299,6 +412,76 @@ const Recipe = (props) => {
                               </div>
                         </div>
                   </div>
+
+                  {/* ---------- MODAL NUTRITIONAL INFO ---------- */}
+
+                  <MDBModal isOpen={modalState} toggle={closeModal} centered>
+                        <MDBModalHeader toggle={closeModal}>
+                              Nutrition Info
+                        </MDBModalHeader>
+                        <MDBModalBody>
+                              <div className="nutritionalInfoContainer">
+                                    <div className="nutritionInfoContainerLeft">
+                                          <div className="caloriesContainer">
+                                                <div className="imageAndTextContainer">
+                                                      <img
+                                                            src={CaloriesIcon}
+                                                            alt="iconCalories"
+                                                            className="nutritionIcon"
+                                                      />
+                                                      <label>Calories</label>
+                                                </div>
+                                                <label className="propsText">
+                                                      {information.calories}
+                                                </label>
+                                          </div>
+                                          <div className="carbsContainer">
+                                                <div className="imageAndTextContainer">
+                                                      <img
+                                                            src={CarbsIcon}
+                                                            alt="iconCarbs"
+                                                            className="nutritionIcon"
+                                                      />
+                                                      <label>Carbs</label>
+                                                </div>
+                                                <label className="propsText">
+                                                      {information.carbs}
+                                                </label>
+                                          </div>
+                                    </div>
+                                    <div className="nutritionInfoContainerRight">
+                                          <div className="fatContainer">
+                                                <div className="imageAndTextContainer">
+                                                      <img
+                                                            src={FatIcon}
+                                                            alt="iconFat"
+                                                            className="nutritionIcon"
+                                                      />
+                                                      <label>Fat</label>
+                                                </div>
+                                                <label className="propsText">
+                                                      {information.fat}
+                                                </label>
+                                          </div>
+                                          <div className="proteinContainer">
+                                                <div className="imageAndTextContainer">
+                                                      <img
+                                                            src={ProteinIcon}
+                                                            alt="iconProtein"
+                                                            className="nutritionIcon"
+                                                      />
+                                                      <label>Protein</label>
+                                                </div>
+                                                <label className="propsText">
+                                                      {information.protein}
+                                                </label>
+                                          </div>
+                                    </div>
+                              </div>
+                        </MDBModalBody>
+                  </MDBModal>
+
+                  {/* ---------- MODAL NUTRITIONAL INFO ---------- */}
             </div>
       );
 };

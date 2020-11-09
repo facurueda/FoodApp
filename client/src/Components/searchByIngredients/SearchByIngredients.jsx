@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./SearchByIngredients.css";
 import ProductCard from "./ProductCard";
 import {
+      actionAddRecipeToFavourites,
       actionDeleteIngredientsAndRecipes,
       actionGetRecipesByIngredients,
       actionGetRecipeToShowByIngredients,
@@ -16,9 +17,15 @@ import {
       MDBCol,
 } from "mdbreact";
 import { Link } from "react-router-dom";
+import Heart from "../../Assets/Recipe/heart.svg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SearchByIngredients = () => {
+      toast.configure();
       const dispatch = useDispatch();
+      const { user, isAuthenticated, isLoading } = useAuth0();
 
       ////////////////////////////////////////////////// -- States and Functions Ingredients  -- //////////////////////////////////////////////////
 
@@ -151,6 +158,43 @@ const SearchByIngredients = () => {
                                                             waves
                                                       />
                                                 </Link>
+                                                <a
+                                                      className="buttonToAddFavourite"
+                                                      onClick={(e) => {
+                                                            if (
+                                                                  isAuthenticated
+                                                            ) {
+                                                                  dispatch(
+                                                                        actionAddRecipeToFavourites(
+                                                                              recipe.id,
+                                                                              recipe.image,
+                                                                              recipe.title,
+                                                                              user.email
+                                                                        )
+                                                                  );
+                                                            } else {
+                                                                  toast.error(
+                                                                        "You Must LogIn",
+                                                                        {
+                                                                              position:
+                                                                                    "top-center",
+                                                                              autoClose: 3000,
+                                                                              hideProgressBar: false,
+                                                                              closeOnClick: true,
+                                                                              pauseOnHover: true,
+                                                                              draggable: true,
+                                                                              progress: undefined,
+                                                                        }
+                                                                  );
+                                                            }
+                                                      }}
+                                                >
+                                                      <img
+                                                            src={Heart}
+                                                            className="iconToAddFavourite"
+                                                            alt="icon"
+                                                      />
+                                                </a>
                                                 <MDBCardBody className="cardBodyRecipes">
                                                       <MDBCardTitle className="cardTitleContainer">
                                                             {recipe.title}

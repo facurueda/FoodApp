@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-      MDBBtn,
       MDBCard,
       MDBCardBody,
       MDBCardImage,
@@ -9,6 +8,7 @@ import {
       MDBCol,
 } from "mdbreact";
 import {
+      actionAddRecipeToFavourites,
       actionDeleteBlur,
       actionDisplayNoneButtonBlur,
       actionGetAleatoryRecipes,
@@ -17,10 +17,16 @@ import {
 } from "../../Redux/recipesActions";
 import "./RandomRecipes.css";
 import { Link } from "react-router-dom";
+import Heart from "../../Assets/Recipe/heart.svg";
+import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RandomRecipes = () => {
       // const history = useHistory();
+      toast.configure();
       const dispatch = useDispatch();
+      const { user, isAuthenticated, isLoading } = useAuth0();
 
       useEffect(() => {
             dispatch(actionGetAleatoryRecipes());
@@ -62,15 +68,17 @@ const RandomRecipes = () => {
                                                                   recipe: recipe,
                                                             },
                                                       }}
-                                                      onClick={e => {
+                                                      onClick={(e) => {
                                                             dispatch(
                                                                   actionGetRecipeToShowByIngredients(
                                                                         recipe.id
-                                                                  ),
+                                                                  )
                                                             );
-                                                            dispatch(actionGetNutritionalInfo(
-                                                                  recipe.id
-                                                            ))
+                                                            dispatch(
+                                                                  actionGetNutritionalInfo(
+                                                                        recipe.id
+                                                                  )
+                                                            );
                                                       }}
                                                 >
                                                       <MDBCardImage
@@ -79,6 +87,43 @@ const RandomRecipes = () => {
                                                             waves
                                                       />
                                                 </Link>
+                                                <a
+                                                      className="buttonToAddFavourite"
+                                                      onClick={(e) => {
+                                                            if (
+                                                                  isAuthenticated
+                                                            ) {
+                                                                  dispatch(
+                                                                        actionAddRecipeToFavourites(
+                                                                              recipe.id,
+                                                                              recipe.image,
+                                                                              recipe.title,
+                                                                              user.email
+                                                                        )
+                                                                  );
+                                                            } else {
+                                                                  toast.error(
+                                                                        "You Must LogIn",
+                                                                        {
+                                                                              position:
+                                                                                    "top-center",
+                                                                              autoClose: 3000,
+                                                                              hideProgressBar: false,
+                                                                              closeOnClick: true,
+                                                                              pauseOnHover: true,
+                                                                              draggable: true,
+                                                                              progress: undefined,
+                                                                        }
+                                                                  );
+                                                            }
+                                                      }}
+                                                >
+                                                      <img
+                                                            src={Heart}
+                                                            className="iconToAddFavourite"
+                                                            alt="icon"
+                                                      />
+                                                </a>
                                                 <MDBCardBody className="cardBodyRecipes">
                                                       <MDBCardTitle className="cardTitleContainer">
                                                             {recipe.title}

@@ -7,11 +7,9 @@ import {
       DELETE_INGREDIENTS_AND_RECIPES,
       GET_RECIPE_BY_INGREDIENTS,
       GET_NUTRITIONAL_INFO,
+      GET_FAVOURITES_RECIPES,
+      DELETE_FAVOURITE_RECIPE,
 } from "./constants";
-
-// import initialRecipesTEST from '../Components/randomRecipes/RESPONSE.json'
-// import recipesByIngredient from '../Components/randomRecipes/RECIPES.json'
-//https://api.spoonacular.com/recipes/findByIngredients?apiKey=cb4a6fb71de442b593a8cf390d83ef61&ingredients=apples
 
 const initialState = {
       aleatoryRecipesHome: [],
@@ -21,7 +19,8 @@ const initialState = {
       recipeToShow : [],
       randomRecipesBlur: "setBlur",
       buttonBlurDisplay: "buttonAleatoryRecipes",
-      nutritionalInfo: []
+      nutritionalInfo: [],
+      favouritesRecipes: [],
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -65,6 +64,16 @@ const recipesReducer = (state = initialState, action) => {
                   return {
                         ...state,
                         nutritionalInfo: action.payload
+                  }
+            case GET_FAVOURITES_RECIPES:
+                  return {
+                        ...state,
+                        favouritesRecipes: action.payload
+                  }
+            case DELETE_FAVOURITE_RECIPE:
+                  return {
+                        ...state,
+                        favouritesRecipes: action.payload
                   }
             default:
                   return state;
