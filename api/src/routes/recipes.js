@@ -2,11 +2,13 @@ const server = require("express").Router();
 const redis = require("redis");
 const fetch = require("node-fetch");
 const axios = require("axios");
-
-
-
-
-
+const Sequelize = require("sequelize");
+const {
+      FavouritesRecipes,
+      Inter_Fav_Recipes,
+      Recipes,
+      Users,
+} = require("../db.js");
 
 const REDIS_PORT = process.env.PORT || 6379;
 
@@ -52,8 +54,6 @@ server.post("/search/:byIngredients", async (req, res) => {
       // QUITE EL CACHE PORQUE SI NO NO FUNCIONA!
 
       try {
-            console.log(req.body);
-
             const { byIngredients } = req.params;
 
             const { ingredients } = req.body;
@@ -64,6 +64,8 @@ server.post("/search/:byIngredients", async (req, res) => {
 
             const data = await response.json();
 
+            console.log('DATA', data)
+
             client.setex(byIngredients, 3600, JSON.stringify(data));
 
             res.send(data);
@@ -73,7 +75,6 @@ server.post("/search/:byIngredients", async (req, res) => {
 });
 
 server.post("/toShow", async (req, res) => {
-
       const { id } = req.body;
 
       const response = await fetch(
@@ -82,13 +83,10 @@ server.post("/toShow", async (req, res) => {
 
       const data = await response.json();
 
-      res.send(data)
+      res.send(data);
 });
 
-server.post('/nutritionalInfo', async (req, res) => {
-
-      console.log('body', req.body)
-
+server.post("/nutritionalInfo", async (req, res) => {
       const { id } = req.body;
 
       const response = await fetch(
@@ -98,9 +96,127 @@ server.post('/nutritionalInfo', async (req, res) => {
       const data = await response.json();
 
       res.send(data);
-})
+});
 
+server.post("/addFavourites", async (req, res) => {
 
+      Users.findOne({
+            where: {
+                  email: req.body.mailUser,
+            },
+      }).then((user) => {
+            return Inter_Fav_Recipes.findAll({
+                  where: {
+                        userId: user.id,
+                        idRecipe: req.body.recipeId,
+                  },
+            }).then((inter) => {
+                  if (inter.length > 0) {
+                        console.log('DUPLICATED')
+                  } else {
+                        return FavouritesRecipes.create({
+                              id: user.id,
+                        }).then((favRec) => {
+                              return Recipes.findOne({
+                                    where: {
+                                          idRecipe: req.body.recipeId,
+                                    },
+                              }).then((recip) => {
+                                    if (recip) {
+                                          return Inter_Fav_Recipes.create({
+                                                idFavouriteRecipe:
+                                                      favRec.idFavouriteRecipe,
+                                                idRecipe: recip.idRecipe,
+                                                userId: user.id,
+                                          });
+                                    } else {
+                                          return Recipes.create({
+                                                idRecipe: req.body.recipeId,
+                                                recipeName: req.body.recipeName,
+                                                imageUrl: req.body.imageUrl,
+                                          }).then((recCreated) => {
+                                                return Inter_Fav_Recipes.create(
+                                                      {
+                                                            idFavouriteRecipe:
+                                                                  favRec.idFavouriteRecipe,
+                                                            idRecipe:
+                                                                  recCreated.idRecipe,
+                                                            userId: user.id,
+                                                      }
+                                                );
+                                          })
+                                    }
+                              });
+                        });
+                  }
+            })
+      })
+      res.send('Created')
+});
+
+server.post("/getFavouritesRecipes", (req, res) => {
+      Users.findOne({
+            where: {
+                  email: req.body.email,
+            },
+      }).then((user) => {
+            FavouritesRecipes.findAll({
+                  where: {
+                        id: user.id,
+                  },
+                  include: [
+                        {
+                              model: Recipes,
+                              as: "favourites",
+                        },
+                  ],
+            }).then((favRec) => {
+                  res.send(favRec);
+            });
+      });
+});
+
+server.delete("/deleteFavouriteRecipe", (req, res) => {
+      Inter_Fav_Recipes.findOne({
+            where: {
+                  idRecipe: req.body.recipeId,
+            },
+      })
+            .then((inter) => {
+                  FavouritesRecipes.destroy({
+                        where: {
+                              idFavouriteRecipe: inter.idFavouriteRecipe,
+                        },
+                  });
+            })
+            .then(() => {
+                  Recipes.destroy({
+                        where: {
+                              idRecipe: req.body.recipeId,
+                        },
+                  });
+            });
+
+      Users.findOne({
+            where: {
+                  email: req.body.email,
+            },
+      }).then((user) => {
+            FavouritesRecipes.findAll({
+                  where: {
+                        id: user.id,
+                  },
+                  include: [
+                        {
+                              model: Recipes,
+                              as: "favourites",
+                        },
+                  ],
+            }).then((favRec) => {
+                  res.send(favRec);
+            });
+      });
+});
 
 // server.post("/", async (req, res) => {
 //       const myUser = new User(req.body)

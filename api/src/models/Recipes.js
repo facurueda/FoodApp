@@ -4,7 +4,6 @@ module.exports = (sequelize) => {
       sequelize.define("Recipes", {
             idRecipe: {
                   type: DataTypes.INTEGER,
-                  autoIncrement: true,
                   primaryKey: true,
                   allowNull: false,
             },
@@ -12,5 +11,9 @@ module.exports = (sequelize) => {
                   type: DataTypes.STRING,
                   allowNull: false,
             },
+            imageUrl: {
+                  type: DataTypes.STRING,
+                  allowNull: false,
+            }
       });
 };
