@@ -5,9 +5,11 @@ import ProductCard from "./ProductCard";
 import {
       actionAddRecipeToFavourites,
       actionDeleteIngredientsAndRecipes,
+      actionGetMoreRecipes,
       actionGetRecipesByIngredients,
       actionGetRecipeToShowByIngredients,
       actionSearchProduct,
+      actionStartSpinner,
 } from "../../Redux/recipesActions";
 import {
       MDBCard,
@@ -21,11 +23,17 @@ import Heart from "../../Assets/Recipe/heart.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import SpinnerSearch from './SpinnerSearch'
+
+
 
 const SearchByIngredients = () => {
       toast.configure();
       const dispatch = useDispatch();
       const { user, isAuthenticated, isLoading } = useAuth0();
+
+
+
 
       ////////////////////////////////////////////////// -- States and Functions Ingredients  -- //////////////////////////////////////////////////
 
@@ -34,14 +42,18 @@ const SearchByIngredients = () => {
 
       const [namesIngredients, setNamesIngredients] = useState([]);
 
+      const [dispatchAction, setDispatchAction] = useState(false);
+
+      const spinnerStatus = useSelector(state => state.recipesReducer.spinnerStatus)
+
       const listProductSearch = useSelector(
             (state) => state.recipesReducer.searchProducts
       );
 
+
       const onChangeProductSearch = (e) => {
             setValueSearch(e.target.value);
             dispatch(actionSearchProduct(e.target.value));
-            
       };
 
       const getProductImage = (ingredient) => {
@@ -54,6 +66,13 @@ const SearchByIngredients = () => {
             ]);
       };
 
+      if (dispatchAction) {
+            dispatch(
+                  actionGetRecipesByIngredients(namesIngredients.toString())
+            );
+            setDispatchAction(false);
+      }
+
       ////////////////////////////////////////////////// -- States and Functions Recipes By Ingredients  -- //////////////////////////////////////////////////
 
       const recipesByIngredients = useSelector(
@@ -65,6 +84,11 @@ const SearchByIngredients = () => {
                   <div className="containerInputSearch">
                         <form
                               onSubmit={(e) => {
+                                    setNamesIngredients([
+                                          ...namesIngredients,
+                                          "+" + valueSearch.toUpperCase(),
+                                    ]);
+
                                     e.preventDefault();
                                     getProductImage(
                                           listProductSearch.filter(
@@ -73,14 +97,9 @@ const SearchByIngredients = () => {
                                                       valueSearch.toLowerCase()
                                           )
                                     );
-                                    setNamesIngredients([
-                                          ...namesIngredients,
-                                          "+" + valueSearch.toUpperCase(),
-                                    ]);
                                     setValueSearch("");
-                                    dispatch(
-                                          actionGetRecipesByIngredients(namesIngredients.toString())
-                                    );
+                                    setDispatchAction(true);
+                                    dispatch(actionStartSpinner())
                               }}
                         >
                               <input
@@ -129,82 +148,91 @@ const SearchByIngredients = () => {
                               );
                         })}
                   </div>
-                  <div className="containerRecipesByIngredients">
-                        {recipesByIngredients.map((recipe) => {
-                              return (
-                                    <MDBCol>
-                                          <MDBCard className="cardContainer">
-                                                <Link
-                                                      to={{
-                                                            pathname:
-                                                                  "/Spinner",
-                                                            state: {},
-                                                      }}
-                                                      onClick={(e) => {
-                                                            dispatch(
-                                                                  actionGetRecipeToShowByIngredients(
-                                                                        recipe.id
-                                                                  )
-                                                            );
-                                                            console.log(
-                                                                  "recipe",
-                                                                  recipe
-                                                            );
-                                                      }}
-                                                >
-                                                      <MDBCardImage
-                                                            className="cardProductImage"
-                                                            src={recipe.image}
-                                                            waves
-                                                      />
-                                                </Link>
-                                                <a
-                                                      className="buttonToAddFavourite"
-                                                      onClick={(e) => {
-                                                            if (
-                                                                  isAuthenticated
-                                                            ) {
-                                                                  dispatch(
-                                                                        actionAddRecipeToFavourites(
-                                                                              recipe.id,
-                                                                              recipe.image,
-                                                                              recipe.title,
-                                                                              user.email
-                                                                        )
-                                                                  );
-                                                            } else {
-                                                                  toast.error(
-                                                                        "You Must LogIn",
-                                                                        {
-                                                                              position:
-                                                                                    "top-center",
-                                                                              autoClose: 3000,
-                                                                              hideProgressBar: false,
-                                                                              closeOnClick: true,
-                                                                              pauseOnHover: true,
-                                                                              draggable: true,
-                                                                              progress: undefined,
+
+                        <div className="containerRecipesByIngredients">
+
+                              {spinnerStatus ? (
+                                    <SpinnerSearch style={{marginTop:'25vw'}}/>
+                              ) : (
+                                    recipesByIngredients.map((recipe) => {
+                                          return (
+                                                <MDBCol>
+                                                      <MDBCard className="cardContainer">
+                                                            <Link
+                                                                  to={{
+                                                                        pathname:
+                                                                              "/Spinner",
+                                                                        state: {},
+                                                                  }}
+                                                                  onClick={(e) => {
+                                                                        dispatch(
+                                                                              actionStartSpinner()
+                                                                        );
+                                                                        dispatch(
+                                                                              actionGetRecipeToShowByIngredients(
+                                                                                    recipe.id
+                                                                              )
+                                                                        );
+                                                                  }}
+                                                            >
+                                                                  <MDBCardImage
+                                                                        className="cardProductImage"
+                                                                        src={
+                                                                              recipe.image
                                                                         }
-                                                                  );
-                                                            }
-                                                      }}
-                                                >
-                                                      <img
-                                                            src={Heart}
-                                                            className="iconToAddFavourite"
-                                                            alt="icon"
-                                                      />
-                                                </a>
-                                                <MDBCardBody className="cardBodyRecipes">
-                                                      <MDBCardTitle className="cardTitleContainer">
-                                                            {recipe.title}
-                                                      </MDBCardTitle>
-                                                </MDBCardBody>
-                                          </MDBCard>
-                                    </MDBCol>
-                              );
-                        })}
-                  </div>
+                                                                        waves
+                                                                  />
+                                                            </Link>
+                                                            <a
+                                                                  className="buttonToAddFavourite"
+                                                                  onClick={(e) => {
+                                                                        if (
+                                                                              isAuthenticated
+                                                                        ) {
+                                                                              dispatch(
+                                                                                    actionAddRecipeToFavourites(
+                                                                                          recipe.id,
+                                                                                          recipe.image,
+                                                                                          recipe.title,
+                                                                                          user.email
+                                                                                    )
+                                                                              );
+                                                                        } else {
+                                                                              toast.error(
+                                                                                    "You Must LogIn",
+                                                                                    {
+                                                                                          position:
+                                                                                                "top-center",
+                                                                                          autoClose: 3000,
+                                                                                          hideProgressBar: false,
+                                                                                          closeOnClick: true,
+                                                                                          pauseOnHover: true,
+                                                                                          draggable: true,
+                                                                                          progress: undefined,
+                                                                                    }
+                                                                              );
+                                                                        }
+                                                                  }}
+                                                            >
+                                                                  <img
+                                                                        src={Heart}
+                                                                        className="iconToAddFavourite"
+                                                                        alt="icon"
+                                                                  />
+                                                            </a>
+                                                            <MDBCardBody className="cardBodyRecipes">
+                                                                  <MDBCardTitle className="cardTitleContainer">
+                                                                        {recipe.title}
+                                                                  </MDBCardTitle>
+                                                            </MDBCardBody>
+                                                      </MDBCard>
+                                                </MDBCol>
+                                          );
+                                    })
+                              )}
+
+                              
+                        </div>
             </div>
       );
 };

@@ -9,12 +9,17 @@ import {
       GET_RECIPE_BY_INGREDIENTS,
       GET_NUTRITIONAL_INFO,
       GET_FAVOURITES_RECIPES,
-      DELETE_FAVOURITE_RECIPE
+      DELETE_FAVOURITE_RECIPE,
+      SET_START_SPINNER,
+      GET_MORE_RECIPES,
+      SET_STOP_SPINNER,
 } from "./constants";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 var qs = require("qs");
 toast.configure();
+axios.defaults.withCrendentails = true;
 
 const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
 
@@ -39,19 +44,21 @@ export const actionGetAleatoryRecipes = () => {
 export const actionGetRecipesByIngredients = (ingredients) => {
       return (dispatch) => {
             var data = qs.stringify({ ingredients });
-            console.log('data', data)
             var config = {
                   method: "post",
                   url: URL + "recipes/search/byIngredients",
                   data: data,
             };
             axios(config).then((res) => {
-                  console.log('res', res)
                   dispatch({
                         type: GET_RECIPES_BY_INGREDIENTS,
                         payload: res.data,
                   });
-            });
+                  dispatch({
+                        type: SET_STOP_SPINNER
+                  })
+            })
+
       };
 };
 
@@ -69,7 +76,7 @@ export const actionGetRecipeToShowByIngredients = (id) => {
                         type: GET_RECIPE_BY_INGREDIENTS,
                         payload: res.data,
                   });
-            });
+            })
       };
 };
 
@@ -243,6 +250,31 @@ export const actionDeleteFavouriteRecipe = (recipeId, email) => {
             });
       };
 }
+
+export const actionStartSpinner = () => {
+      return (dispatch) => {
+            dispatch({
+                  type: SET_START_SPINNER,
+            });
+      };
+}
+
+
+///////////////////////// LOGOUT
+
+export const actionLogout = () => {
+      return (dispatch) => {
+            var config = {
+                  withCredentials: true,
+                  method: "get",
+                  url: 'https://henryproject.us.auth0.com/v2/logout',
+            };
+            axios(config)
+      }
+}
+
+
+
 
 // export const actionDeleteUser = (user) => {
 //       return (dispatch) => {

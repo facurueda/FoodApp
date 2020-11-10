@@ -59,7 +59,7 @@ server.post("/search/:byIngredients", async (req, res) => {
             const { ingredients } = req.body;
 
             const response = await fetch(
-                  `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${APIKEY}&ingredients=${ingredients}&number=8`
+                  `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${APIKEY}&ingredients=${ingredients}&number=80`
             );
 
             const data = await response.json();

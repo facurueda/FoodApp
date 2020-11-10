@@ -9,6 +9,8 @@ import {
       GET_NUTRITIONAL_INFO,
       GET_FAVOURITES_RECIPES,
       DELETE_FAVOURITE_RECIPE,
+      SET_START_SPINNER,
+      SET_STOP_SPINNER,
 } from "./constants";
 
 const initialState = {
@@ -21,6 +23,7 @@ const initialState = {
       buttonBlurDisplay: "buttonAleatoryRecipes",
       nutritionalInfo: [],
       favouritesRecipes: [],
+      spinnerStatus : false,
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -74,6 +77,16 @@ const recipesReducer = (state = initialState, action) => {
                   return {
                         ...state,
                         favouritesRecipes: action.payload
+                  }
+            case SET_START_SPINNER:
+                  return {
+                        ...state,
+                        spinnerStatus: true
+                  }
+            case SET_STOP_SPINNER:
+                  return {
+                        ...state,
+                        spinnerStatus: false
                   }
             default:
                   return state;

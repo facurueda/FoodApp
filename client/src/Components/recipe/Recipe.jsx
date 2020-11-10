@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 import "./Recipe.css";
@@ -232,6 +232,7 @@ const Recipe = (props) => {
                                           ) : (
                                                 <div className="modifyQuantities">
                                                       <a
+                                                            className="buttonModifyServings"
                                                             onClick={(e) => {
                                                                   if (
                                                                         servingsNumber >
@@ -270,6 +271,7 @@ const Recipe = (props) => {
                                                             {servingsNumber}
                                                       </div>
                                                       <a
+                                                            className="buttonModifyServings"
                                                             onClick={(e) =>
                                                                   setServingsNumber(
                                                                         servingsNumber +

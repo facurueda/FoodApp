@@ -2,13 +2,15 @@
       position: fixed;
       display: flex;
       flex-direction: column;
-      /* justify-content: center; */
+      justify-content: space-around;
       align-items: center;
       padding-top: 1vw;
       width: 4vw;
       height: 100%;
-      background-color: rgba(51, 170, 51, .1);
+      background-color: rgba(230, 230, 230, 0.507);
       z-index: 9999;
+      padding-bottom: 25%;
+
 }
 .iconUser {
       opacity: 5;

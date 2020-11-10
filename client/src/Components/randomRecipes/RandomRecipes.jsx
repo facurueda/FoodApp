@@ -14,6 +14,7 @@ import {
       actionGetAleatoryRecipes,
       actionGetNutritionalInfo,
       actionGetRecipeToShowByIngredients,
+      actionStartSpinner,
 } from "../../Redux/recipesActions";
 import "./RandomRecipes.css";
 import { Link } from "react-router-dom";
@@ -69,6 +70,7 @@ const RandomRecipes = () => {
                                                             },
                                                       }}
                                                       onClick={(e) => {
+                                                            dispatch(actionStartSpinner())
                                                             dispatch(
                                                                   actionGetRecipeToShowByIngredients(
                                                                         recipe.id
