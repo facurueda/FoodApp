@@ -13,6 +13,8 @@ import {
       SET_START_SPINNER,
       GET_MORE_RECIPES,
       SET_STOP_SPINNER,
+      VIEW_PERSONAL_SHOPPING_LIST,
+      VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
 } from "./constants";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -270,6 +272,22 @@ export const actionLogout = () => {
                   url: 'https://henryproject.us.auth0.com/v2/logout',
             };
             axios(config)
+      }
+}
+
+export const actionViewPersonalShoppingList = () => {
+      return (dispatch) => {
+            dispatch({
+                  type: VIEW_PERSONAL_SHOPPING_LIST
+            })
+      }
+}
+
+export const actionViewButtonPersonalShoppingList = () => {
+      return (dispatch) => {
+            dispatch({
+                  type: VIEW_BUTTON_PERSONAL_SHOPPING_LIST
+            })
       }
 }
 

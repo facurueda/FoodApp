@@ -9,23 +9,38 @@
       height: 100%;
       background-color: rgba(230, 230, 230, 0.507);
       z-index: 9999;
-      padding-bottom: 25%;
-
+      padding-bottom: 30%;
+}
+.buttonsToLogin {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+}
+.buttonsLoginContainer{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+}
+.buttonLogin {
+      position: relative;
+      right: -1vw; 
+      visibility: collapse;
 }
 .iconUser {
       opacity: 5;
       width: 3vw;
       height: 3vw;
 }
-.iconHome{
+.iconHome {
       width: 3vw;
       height: 3vw;
 }
-.iconShopping{
+.iconShopping {
       width: 3vw;
       height: 3vw;
 }
-.iconFavourites{
+.iconFavourites {
       height: 3vw;
       width: 3vw;
 }

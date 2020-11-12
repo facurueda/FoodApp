@@ -1,31 +1,68 @@
-.shoppingListContainer{
-      margin-left: 5vw;
+.shoppingListContainer {
+      /* margin-left: 5vw; */
 }
 
-.shoppingListTitle{
+.shoppingListTitle {
       text-align: center;
       font-size: 3vw;
 }
 
-.inputToAddIngredients{
+.inputToAddIngredients {
       display: flex;
       justify-content: center;
       margin-bottom: 2vw;
 }
+.buttonToViewPersonalShoppingList {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.buttonToViewPersonalShoppingList {
+      position: relative;
+      top: -12vw;
+      z-index: 50;
+}
+.bodyShoppingListContainer{
+      position: relative;
+      top:-9vw;
+      z-index: 50;
 
-.shoppingRecipesContainer{
+}
+.buttonInputShoppingList{
+      border-radius: 50%;
+      height: 3vw;
+      width: 3vw;
+      position: relative;
+      right: 2vw;
+      outline: none;
+      /* border: black .5px solid; */
+      background-color: #63759d;
+      color: white;
+      font-size: 1vw;
+}
+.inputShoppingList{
+      padding-left: 1vw;
+      border-radius: 1vw;
+      border: rgb(238, 139, 139) solid;
+      height: 2.5vw;
+      width: 20vw;
+      outline: none;
+      /* background-color: rgb(224, 224, 224); */
+}
+
+.shoppingRecipesContainer {
       display: flex;
       justify-content: space-around;
 }
 
-.listRecipeContainerTitle{
+.listRecipeContainerTitle {
       text-align: center;
       font-size: 1.5vw;
 }
 
-.ulShoppingList{
+.ulShoppingList {
       border: black solid 1px;
-      border-radius: .3vw;
+      border-radius: 0.3vw;
       width: 25vw;
       list-style: none;
 }
@@ -34,13 +71,38 @@
       padding-left: 1vw;
       font-size: 1.1vw;
 }
-.liShoppingListCompleted{
+.liShoppingListCompleted {
       border-bottom: black solid 1px;
       padding-left: 1vw;
       font-size: 1.1vw;
       text-decoration: line-through;
 }
-.liContainer{
-      padding-bottom: .1vw;
-      border-left: solid red .15vw;
+.liContainer {
+      padding-bottom: 0.1vw;
+      border-left: solid red 0.15vw;
+}
+.personalShoppingListItemContainer{
+      display: flex;
+      width: 100%;
+}
+
+.textPersonalShoppingList{
+      width: 70%;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+}
+.buttonPersonalShoppingListItem{
+      padding-right: .5vw;
+      width: 30%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+}
+.buttonToMarkCheckItemPersonalList{
+      width: 1vw;
+      height: 1vw;
+      
 }

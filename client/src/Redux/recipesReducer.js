@@ -11,6 +11,8 @@ import {
       DELETE_FAVOURITE_RECIPE,
       SET_START_SPINNER,
       SET_STOP_SPINNER,
+      VIEW_PERSONAL_SHOPPING_LIST,
+      VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
 } from "./constants";
 
 const initialState = {
@@ -24,6 +26,8 @@ const initialState = {
       nutritionalInfo: [],
       favouritesRecipes: [],
       spinnerStatus : false,
+      viewPersonalShoppingList: 'none',
+      viewButtonPersonalShoppingList: 'flex'
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -87,6 +91,14 @@ const recipesReducer = (state = initialState, action) => {
                   return {
                         ...state,
                         spinnerStatus: false
+                  }
+            case VIEW_PERSONAL_SHOPPING_LIST:
+                  return {
+                        viewPersonalShoppingList: 'flex'
+                  }
+            case VIEW_BUTTON_PERSONAL_SHOPPING_LIST:
+                  return {
+                        viewButtonPersonalShoppingList: 'none'
                   }
             default:
                   return state;
