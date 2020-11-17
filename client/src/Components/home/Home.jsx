@@ -10,7 +10,7 @@ const Home = () => {
       return (
             <div className="homeContainer">
                   <RandomRecipes />
-                  <div className="searchRecipes">
+                  {/* <div className="searchRecipes">
                         <Link
                               to={{
                                     pathname: "/SearchRecipe",
@@ -33,7 +33,7 @@ const Home = () => {
                                     className="modalOpenSearchRecipesByIngredients"
                               />
                         </Link>
-                  </div>
+                  </div> */}
             </div>
       );
 };

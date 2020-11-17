@@ -30,19 +30,19 @@ const CACHE = (req, res, next) => {
       });
 };
 
-server.get("/random/:typeRecipe", CACHE, async (req, res) => {
+server.get("/random/:typeRecipe", async (req, res) => {
       try {
             console.log("Fetching Data...");
 
             const { typeRecipe } = req.params;
 
             const response = await fetch(
-                  `https://api.spoonacular.com/recipes/random?apiKey=${APIKEY}&number=4`
+                  `https://api.spoonacular.com/recipes/random?apiKey=${APIKEY}&number=8`
             );
 
             const data = await response.json();
 
-            client.setex(typeRecipe, 3600, JSON.stringify(data));
+            // client.setex(typeRecipe, 3600, JSON.stringify(data));
 
             res.send(data);
       } catch (err) {

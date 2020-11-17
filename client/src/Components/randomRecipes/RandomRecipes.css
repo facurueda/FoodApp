@@ -2,13 +2,18 @@
 
 .randomRecipesContainer {
       display: flex;
-      width: 100%;
+      width: 95%;
+      margin-left: 3vw;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
 }
 .setBlur{
       display: flex;
-      width: 100%;
+      width: 95%;
+      margin-left: 3vw;
       justify-content: space-between;
+      flex-wrap: wrap;
       filter: blur(.5vw);
 }
 .cardContainer {

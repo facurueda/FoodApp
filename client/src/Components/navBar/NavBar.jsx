@@ -2,11 +2,10 @@ import React from "react";
 import "./NavBar.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useHistory } from "react-router-dom";
-import Home from "../../Assets/navBar/home.svg";
-import Favourites from "../../Assets/navBar/favourites.svg";
-import ShoppingList from "../../Assets/navBar/note.svg";
-import User from "../../Assets/navBar/user.svg";
 import { useDispatch } from "react-redux";
+import Search from "../../Assets/navBar/Search.svg";
+import BookMark from "../../Assets/navBar/BookMark.svg";
+import User from "../../Assets/navBar/User.svg";
 import {
       actionGetActionRecipes,
       actionLogout,
@@ -28,7 +27,56 @@ const NavBar = () => {
 
       return (
             <div className="navBarContainer">
-                  <div className="buttonsLoginContainer">
+                  <div className="nameContainer">
+                        <span className="logoName">FoodApp</span>
+                        <a className="buttonNavBar">
+                              <span className="menuName">RECIPES</span>
+                        </a>
+                        <a className="buttonNavBar">
+                              <span className="menuName">SHOPPING LIST</span>
+                        </a>
+                  </div>
+                  <div className="ButtonsNavBarContainer">
+                        <div className="buttonsNBContainer">
+                              <div className="buttonAndIconContainer">
+                                    <a className="buttonNavBar">
+                                          <img
+                                                alt="icon"
+                                                className="iconStyles"
+                                                src={Search}
+                                          />
+                                          <span className="menuName">
+                                                SEARCH
+                                          </span>
+                                    </a>
+                              </div>
+                              <div className="buttonAndIconContainer">
+                                    <a className="buttonNavBar">
+                                          <img
+                                                alt="icon"
+                                                className="iconStyles"
+                                                src={BookMark}
+                                          />
+                                          <span className="menuName">
+                                                SAVES
+                                          </span>
+                                    </a>
+                              </div>
+                              <div className="buttonAndIconContainer">
+                                    <a className="buttonNavBar">
+                                          <img
+                                                alt="icon"
+                                                className="iconStyles"
+                                                src={User}
+                                          />
+                                          <span className="menuName">
+                                                SIGN IN
+                                          </span>
+                                    </a>
+                              </div>
+                        </div>
+                  </div>
+                  {/* <div className="buttonsLoginContainer">
                         <a
                               className="buttonsToLogin"
                               onClick={(e) => {
@@ -112,7 +160,7 @@ const NavBar = () => {
                         >
                               <label>FACUNDO</label>
                         </a>
-                  </div>
+                  </div> */}
             </div>
       );
 };

@@ -22,19 +22,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NavBar from "./Components/navBar/NavBar";
 import ShoppingList from "./Components/shoppingList/ShoppingList";
 import FavouritesRecipes from "./Components/favouritesRecipes/FavouritesRecipes";
+import Footer from "./Components/footer/Footer";
 
 function App() {
 
       const { loginWithRedirect } = useAuth0();
 
       return (
-            <div style={{ height: "100%", display:'flex' }}>
+            <div className='divAppContainer'>
                   <Router>
                         <Route
                               render={({ location, history }) => (
                                     <React.Fragment>
                                           <NavBar/>
-                                          <main style={{ height: "100%" }}>
+                                          <main>
                                                 <Route
                                                       path="/"
                                                       exact
@@ -53,6 +54,7 @@ function App() {
                                                 {/* <Route path="/home" component={props => <Home />} /> */}
                                                 {/* <Route path="/devices" component={props => <Devices />} /> */}
                                           </main>
+                                          <Footer/>
                                     </React.Fragment>
                               )}
                         />

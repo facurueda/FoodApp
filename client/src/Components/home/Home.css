@@ -4,13 +4,13 @@
       background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
-      
       height: 100%;
       width: 100%;
       justify-content: center;
       align-items: center;
-      padding-left: 5vw;
-      padding-bottom: 3vw;
+      padding-top: 7vw;
+      /* padding-left: 5vw; */
+      /* padding-bottom: 3vw; */
 }
 
 .searchRecipes{
