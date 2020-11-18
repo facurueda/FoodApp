@@ -5,7 +5,7 @@
 .fullRecipeContainer {
       display: flex;
       flex-direction: column;
-      height: auto;
+      height: 85%;
       padding-top: 4.5vw;
 }
 
@@ -94,7 +94,7 @@
       top: -17vw;
       width: 100%;
       z-index: 5;
-      /* background-color: aquamarine; */
+      margin-bottom: -13vw;
 }
 .recipeImageAndSocial {
       width: 100%;

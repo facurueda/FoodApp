@@ -13,7 +13,7 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "mdbreact/dist/css/mdb.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./Components/home/Home";
-import SearchRecipesByIngredients from './Components/searchByIngredients/SearchByIngredients'
+import SearchRecipesByIngredients from "./Components/searchByIngredients/SearchByIngredients";
 import Recipe from "./Components/recipe/Recipe";
 import SpinnerPage from "./Components/spinnerPage/Spinner";
 import ItemList from "./Components/shoppingList/ItemList";
@@ -25,11 +25,10 @@ import FavouritesRecipes from "./Components/favouritesRecipes/FavouritesRecipes"
 import Footer from "./Components/footer/Footer";
 
 function App() {
-
       const { loginWithRedirect } = useAuth0();
 
       return (
-            <div className='divAppContainer'>
+            <div className="divAppContainer">
                   <Router>
                         <Route
                               render={({ location, history }) => (
@@ -45,14 +44,30 @@ function App() {
                                                       path="/Recipe"
                                                       component={Recipe}
                                                 />
-                                                <Route path='/SearchRecipeByIngredients' component={SearchRecipesByIngredients} />
-                                                <Route path='/Spinner' component={SpinnerPage} />
-                                                <Route path='/test' component={ItemList} />
-                                                <Route path='/shoppingList' component={ShoppingList} /> 
-                                                <Route path='/FavouritesRecipes' component={FavouritesRecipes} />
-                                                {/* <Route path="/" exact component={props => <RootComponent />} /> */}
-                                                {/* <Route path="/home" component={props => <Home />} /> */}
-                                                {/* <Route path="/devices" component={props => <Devices />} /> */}
+                                                <Route
+                                                      path="/SearchRecipeByIngredients"
+                                                      component={
+                                                            SearchRecipesByIngredients
+                                                      }
+                                                />
+                                                <Route
+                                                      path="/Spinner"
+                                                      component={SpinnerPage}
+                                                />
+                                                <Route
+                                                      path="/test"
+                                                      component={ItemList}
+                                                />
+                                                <Route
+                                                      path="/shoppingList"
+                                                      component={ShoppingList}
+                                                />
+                                                <Route
+                                                      path="/FavouritesRecipes"
+                                                      component={
+                                                            FavouritesRecipes
+                                                      }
+                                                />
                                           </main>
                                           <Footer/>
                                     </React.Fragment>

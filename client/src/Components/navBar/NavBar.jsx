@@ -28,7 +28,13 @@ const NavBar = () => {
       return (
             <div className="navBarContainer">
                   <div className="nameContainer">
-                        <span className="logoName">FoodApp</span>
+                        <a
+                              onClick={(e) => {
+                                    history.push("/");
+                              }}
+                        >
+                              <span className="logoName">FoodApp</span>
+                        </a>
                         <a className="buttonNavBar">
                               <span className="menuName">RECIPES</span>
                         </a>

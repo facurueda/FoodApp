@@ -54,14 +54,10 @@ const Recipe = (props) => {
             let numberToShow =
                   (number / recipeByIngredient.servings) * servingsNumber;
 
-            return numberToShow;
+            let numberToReturn = numberToShow.toFixed(2);
 
-            if (number == "0.6666666666666666") return "2/3";
-            else if (number == "0.3333333333333333") return "1/3";
-            else if (number == "1.3333333333333333") return "1 1/3";
-            else {
-                  return number;
-            }
+            if(numberToReturn.slice(-2) == '00') return numberToReturn.slice(0, -3)
+            return numberToReturn;
       };
 
       const [modalState, setModalState] = useState(false);
@@ -482,8 +478,6 @@ const Recipe = (props) => {
                               </div>
                         </MDBModalBody>
                   </MDBModal>
-
-                  {/* ---------- MODAL NUTRITIONAL INFO ---------- */}
             </div>
       );
 };
