@@ -9,15 +9,4 @@
       justify-content: center;
       align-items: center;
       padding-top: 8vw;
-      /* padding-left: 5vw; */
-      /* padding-bottom: 3vw; */
-}
-
-.searchRecipes{
-      display: flex;
-
-}
-.modalOpenSearchRecipesByIngredients {
-      border-radius: 50%;
-      width: 18vw;
 }

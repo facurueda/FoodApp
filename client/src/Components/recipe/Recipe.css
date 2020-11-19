@@ -16,6 +16,15 @@
       overflow: hidden;
       position: relative;
 }
+.buttonGoBackInRecipe{
+      margin-top: -5vw;
+      width: 5vw;
+      position: relative;
+      left: 5vw;
+      top: 10vw;
+      z-index: 50;
+      cursor: pointer;
+}
 .buttonModifyServings{
       display: flex;
       justify-content: center;

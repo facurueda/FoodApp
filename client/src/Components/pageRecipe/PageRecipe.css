@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Oleo+Script&family=Oswald&family=Raleway&family=Roboto&display=swap");
+
+.pageRecipeContainer {
+      background-image: url(../../Assets/Home/HomeBackground.png);
+      background-size: 140vw;
+      background-repeat: no-repeat;
+      padding-top: 5vw;
+      display: flex;
+      height: 97.6vh;
+      width: 100%;
+}
+
+.searchRecipes {
+      display: flex;
+      width: 40%;
+      justify-content: center;
+      align-items: center;
+}
+
+.cuisinesByCounteryContainer {
+      display: flex;
+      width: 60%;
+      height: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+}
+
+.countryRecipeContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 1vw;
+}
+
+.countryImage {
+      width: 12vw;
+      border-radius: 1vw;
+      transition: 1000ms;
+      z-index: 1;
+      -webkit-box-shadow: -14px -22px 41px -13px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: -14px -22px 41px -13px rgba(0, 0, 0, 0.75);
+      box-shadow: -14px -22px 41px -13px rgba(0, 0, 0, 0.75);
+}
+.countryImage:hover {
+      width: 15vw;
+      transition: 1000ms;
+}
+
+.countryName {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 5vw;
+      font-size: 1.5vw;
+      font-family: Oleo Script;
+      width: 100%;
+      border-radius: 1vw;
+      position: relative;
+      padding-top: 1.5vw;
+      z-index: 0;
+      top: -1.5vw;
+      margin-bottom: -1.5vw;
+      -webkit-box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.75);
+      box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.75);
+      background-color: rgba(233, 233, 233, 0.623);
+}
+
+.modalOpenSearchRecipesByIngredients{
+      width: 25vw;
+      -webkit-box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.75);
+      box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.75);
+      transition: 700ms;
+}
+
+.modalOpenSearchRecipesByIngredients:hover{
+      width: 30vw;
+      transition: 1000ms;
+}

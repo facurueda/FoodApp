@@ -15,6 +15,8 @@ import {
       SET_STOP_SPINNER,
       VIEW_PERSONAL_SHOPPING_LIST,
       VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
+      GET_RECIPES_BY_COUNTRIES,
+      ACTION_CLEAN_RECIPE,
 } from "./constants";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -78,13 +80,23 @@ export const actionGetRecipeToShowByIngredients = (id) => {
                         type: GET_RECIPE_BY_INGREDIENTS,
                         payload: res.data,
                   });
+                  dispatch({
+                        type: SET_STOP_SPINNER
+                  })
             })
       };
 };
 
+export const actionCleanState = () => {
+      return (dispatch) => {
+            dispatch({
+                  type: ACTION_CLEAN_RECIPE
+            })
+      }
+}
+
 export const actionDeleteIngredientsAndRecipes = () => {
       return (dispatch) => {
-            console.log("entro en delete");
             dispatch({
                   type: DELETE_INGREDIENTS_AND_RECIPES,
             });
@@ -123,6 +135,27 @@ export const actionGetNutritionalInfo = (id) => {
                         payload: res.data,
                   });
             });
+      };
+};
+
+export const actionGetRecipesByCountries = (country) => {
+      return (dispatch) => {
+            var data = qs.stringify({ country });
+            var config = {
+                  method: "post",
+                  url: URL + "recipes/byCountries",
+                  data: data,
+            };
+            axios(config).then((res) => {
+                  console.log("respuesta", res);
+                  dispatch({
+                        type: GET_RECIPES_BY_COUNTRIES,
+                        payload: res.data.results,
+                  });
+                  dispatch({
+                        type: SET_STOP_SPINNER,
+                  })
+            })
       };
 };
 

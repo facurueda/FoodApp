@@ -23,6 +23,7 @@ const NavBar = () => {
       const dispatch = useDispatch();
       const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
       toast.configure();
+      console.log("user", user);
       const history = useHistory();
 
       return (
@@ -35,7 +36,12 @@ const NavBar = () => {
                         >
                               <span className="logoName">FoodApp</span>
                         </a>
-                        <a className="buttonNavBar">
+                        <a
+                              className="buttonNavBar"
+                              onClick={(e) => {
+                                    history.push("/Recipes");
+                              }}
+                        >
                               <span className="menuName">RECIPES</span>
                         </a>
                         <a className="buttonNavBar">
@@ -69,16 +75,37 @@ const NavBar = () => {
                                     </a>
                               </div>
                               <div className="buttonAndIconContainer">
-                                    <a className="buttonNavBar">
-                                          <img
-                                                alt="icon"
-                                                className="iconStyles"
-                                                src={User}
-                                          />
-                                          <span className="menuName">
-                                                SIGN IN
-                                          </span>
-                                    </a>
+                                    {isAuthenticated ? (
+                                          <a
+                                                className="buttonNavBar"
+                                                onClick={(e) => {
+                                                      logout();
+                                                }}
+                                          >
+                                                <img
+                                                      alt="icon"
+                                                      src={user.picture}
+                                                      className='userPictureLogged'
+                                                />
+                                          </a>
+                                    ) : (
+                                          <a className="buttonNavBar">
+                                                <a
+                                                      onClick={(e) => {
+                                                            loginWithRedirect();
+                                                      }}
+                                                >
+                                                      <img
+                                                            alt="icon"
+                                                            className="iconStyles"
+                                                            src={User}
+                                                      />
+                                                      <span className="menuName">
+                                                            SIGN IN
+                                                      </span>
+                                                </a>
+                                          </a>
+                                    )}
                               </div>
                         </div>
                   </div>

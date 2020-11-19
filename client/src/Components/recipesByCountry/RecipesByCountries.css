@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Oleo+Script&family=Oswald&family=Raleway&family=Roboto&display=swap');
+
+.titleNameByCountry{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 5vw;
+      font-family: Oleo Script;
+      text-decoration: underline;
+      margin-bottom: 2vw;
+}
+.recipesByCountryContainer{
+      background-image: url(../../Assets/Home/HomeBackground.png);
+      background-size: 125vw;
+      padding-top: 7vw;
+      padding-left: 2.5vw;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+}
+.buttonGoBack{
+      width: 4vw;
+      cursor: pointer;
+      position: relative;
+      left: -20vw;
+}

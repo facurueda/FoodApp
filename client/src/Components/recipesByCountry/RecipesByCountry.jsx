@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
       MDBCard,
       MDBCardBody,
@@ -7,49 +7,51 @@ import {
       MDBCardTitle,
       MDBCol,
 } from "mdbreact";
+import Heart from "../../Assets/Recipe/heart.svg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useHistory } from "react-router-dom";
 import {
       actionAddRecipeToFavourites,
       actionCleanState,
-      actionDeleteBlur,
-      actionDisplayNoneButtonBlur,
-      actionGetAleatoryRecipes,
-      actionGetNutritionalInfo,
       actionGetRecipeToShowByIngredients,
       actionStartSpinner,
 } from "../../Redux/recipesActions";
-import "./RandomRecipes.css";
-import { Link } from "react-router-dom";
-import Heart from "../../Assets/Recipe/heart.svg";
-import { useAuth0 } from "@auth0/auth0-react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import SpinnerSearch from "../searchByIngredients/SpinnerSearch";
+import buttonGoBack from "../../Assets/Home/reply.svg";
+import "./RecipesByCountries.css";
 
-const RandomRecipes = () => {
-      // const history = useHistory();
+const RecipesByCountry = () => {
       toast.configure();
+      const history = useHistory();
       const dispatch = useDispatch();
       const { user, isAuthenticated, isLoading } = useAuth0();
-
-      useEffect(() => {
-            dispatch(actionGetAleatoryRecipes());
-      }, []);
-
-      let getAleatoryRecipes = useSelector(
-            (state) => state.recipesReducer.aleatoryRecipesHome
+      const recipesByCountries = useSelector(
+            (state) => state.recipesReducer.recipesByCountries
       );
-
-      const imagesWithBlur = useSelector(
-            (state) => state.recipesReducer.randomRecipesBlur
-      );
-
-      const buttonBlur = useSelector(
-            (state) => state.recipesReducer.buttonBlurDisplay
+      const spinnerStatus = useSelector(
+            (state) => state.recipesReducer.spinnerStatus
       );
 
       return (
-            <div style={{ position: "relative" }}>
-                  <div className='randomRecipesContainer'>
-                        {getAleatoryRecipes.map((recipe) => {
+            <div className="recipesByCountryContainer">
+                  
+                  <div className="titleNameByCountry">
+                  <img
+                        className='buttonGoBack'
+                        src={buttonGoBack}
+                        onClick={(e) => {
+                              history.goBack();
+                        }}
+                  />
+                        <label>{history.location.state} Recipes</label>
+                  </div>
+
+                  {spinnerStatus ? (
+                        <SpinnerSearch/>
+                  ) : (
+                        recipesByCountries.map((recipe) => {
                               return (
                                     <MDBCol>
                                           <MDBCard className="cardContainer">
@@ -57,20 +59,15 @@ const RandomRecipes = () => {
                                                       to={{
                                                             pathname:
                                                                   "/Spinner",
-                                                            state: {
-                                                                  recipe: recipe,
-                                                            },
+                                                            state: {},
                                                       }}
                                                       onClick={(e) => {
                                                             dispatch(actionCleanState())
-                                                            dispatch(actionStartSpinner())
                                                             dispatch(
-                                                                  actionGetRecipeToShowByIngredients(
-                                                                        recipe.id
-                                                                  )
+                                                                  actionStartSpinner()
                                                             );
                                                             dispatch(
-                                                                  actionGetNutritionalInfo(
+                                                                  actionGetRecipeToShowByIngredients(
                                                                         recipe.id
                                                                   )
                                                             );
@@ -127,10 +124,10 @@ const RandomRecipes = () => {
                                           </MDBCard>
                                     </MDBCol>
                               );
-                        })}
-                  </div>
+                        })
+                  )}
             </div>
       );
 };
 
-export default RandomRecipes;
+export default RecipesByCountry;

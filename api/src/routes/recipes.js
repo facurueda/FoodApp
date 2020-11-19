@@ -30,7 +30,7 @@ const CACHE = (req, res, next) => {
       });
 };
 
-server.get("/random/:typeRecipe", async (req, res) => {
+server.get("/random/:typeRecipe", CACHE, async (req, res) => {
       try {
             console.log("Fetching Data...");
 
@@ -42,7 +42,7 @@ server.get("/random/:typeRecipe", async (req, res) => {
 
             const data = await response.json();
 
-            // client.setex(typeRecipe, 3600, JSON.stringify(data));
+            client.setex(typeRecipe, 600, JSON.stringify(data));
 
             res.send(data);
       } catch (err) {
@@ -85,6 +85,18 @@ server.post("/toShow", async (req, res) => {
 
       res.send(data);
 });
+
+server.post('/byCountries', async (req, res) => {
+      const {country} = req.body;
+
+      const response = await fetch(
+            `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&cuisine=${country}&number=60`
+      );
+
+      const data = await response.json();
+
+      res.send(data);
+})
 
 server.post("/nutritionalInfo", async (req, res) => {
       const { id } = req.body;

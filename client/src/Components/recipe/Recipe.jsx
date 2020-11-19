@@ -25,6 +25,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FacebookIcon, PinterestIcon, WhatsappIcon } from "react-share";
 import { actionAddRecipeToFavourites } from "../../Redux/recipesActions";
+import buttonGoBack from "../../Assets/Home/reply.svg";
+import { useHistory } from "react-router-dom";
 
 const Recipe = (props) => {
       toast.configure();
@@ -56,7 +58,8 @@ const Recipe = (props) => {
 
             let numberToReturn = numberToShow.toFixed(2);
 
-            if(numberToReturn.slice(-2) == '00') return numberToReturn.slice(0, -3)
+            if (numberToReturn.slice(-2) == "00")
+                  return numberToReturn.slice(0, -3);
             return numberToReturn;
       };
 
@@ -68,9 +71,19 @@ const Recipe = (props) => {
 
       const imageBackgroundTop = recipeByIngredient.image;
 
+      const history = useHistory()
+
       return (
             <div className="fullRecipeContainer">
                   <div className="topRecipe">
+                        <img
+                              className="buttonGoBackInRecipe"
+                              src={buttonGoBack}
+                              onClick={(e) => {
+                                    console.log(history.goBack())
+                                    history.goBack();
+                              }}
+                        />
                         <div
                               className="imageTopRecipe"
                               style={{

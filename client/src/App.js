@@ -23,6 +23,8 @@ import NavBar from "./Components/navBar/NavBar";
 import ShoppingList from "./Components/shoppingList/ShoppingList";
 import FavouritesRecipes from "./Components/favouritesRecipes/FavouritesRecipes";
 import Footer from "./Components/footer/Footer";
+import PageRecipe from "./Components/pageRecipe/PageRecipe";
+import RecipesByCountry from "./Components/recipesByCountry/RecipesByCountry";
 
 function App() {
       const { loginWithRedirect } = useAuth0();
@@ -67,6 +69,16 @@ function App() {
                                                       component={
                                                             FavouritesRecipes
                                                       }
+                                                />
+                                                <Route
+                                                      path='/Recipes'
+                                                      component={
+                                                            PageRecipe
+                                                      }
+                                                />
+                                                <Route
+                                                      path='/RecipesByCountries'
+                                                      component={RecipesByCountry}
                                                 />
                                           </main>
                                           <Footer/>

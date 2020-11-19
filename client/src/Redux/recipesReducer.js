@@ -13,6 +13,8 @@ import {
       SET_STOP_SPINNER,
       VIEW_PERSONAL_SHOPPING_LIST,
       VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
+      GET_RECIPES_BY_COUNTRIES,
+      ACTION_CLEAN_RECIPE,
 } from "./constants";
 
 const initialState = {
@@ -20,14 +22,15 @@ const initialState = {
       searchProducts: [],
       productsInFridge: [],
       recipesByIngredients: [],
-      recipeToShow : [],
+      recipeToShow: [],
       randomRecipesBlur: "setBlur",
       buttonBlurDisplay: "buttonAleatoryRecipes",
       nutritionalInfo: [],
       favouritesRecipes: [],
-      spinnerStatus : false,
-      viewPersonalShoppingList: 'none',
-      viewButtonPersonalShoppingList: 'flex'
+      recipesByCountries: [],
+      spinnerStatus: false,
+      viewPersonalShoppingList: "none",
+      viewButtonPersonalShoppingList: "flex",
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -45,13 +48,13 @@ const recipesReducer = (state = initialState, action) => {
             case GET_RECIPE_BY_INGREDIENTS:
                   return {
                         ...state,
-                        recipeToShow: action.payload
-                  }
+                        recipeToShow: action.payload,
+                  };
             case DELETE_INGREDIENTS_AND_RECIPES:
                   return {
                         ...state,
-                        recipesByIngredients: []
-                  }
+                        recipesByIngredients: [],
+                  };
             case GET_SEARCH_PRODUCTS:
                   return {
                         ...state,
@@ -62,6 +65,11 @@ const recipesReducer = (state = initialState, action) => {
                         ...state,
                         randomRecipesBlur: "randomRecipesContainer",
                   };
+            case ACTION_CLEAN_RECIPE:
+                  return {
+                        ...state,
+                        recipeToShow: []
+                  }
             case DISPLAY_NONE_BUTTON_BLUR:
                   return {
                         ...state,
@@ -70,36 +78,41 @@ const recipesReducer = (state = initialState, action) => {
             case GET_NUTRITIONAL_INFO:
                   return {
                         ...state,
-                        nutritionalInfo: action.payload
-                  }
+                        nutritionalInfo: action.payload,
+                  };
             case GET_FAVOURITES_RECIPES:
                   return {
                         ...state,
-                        favouritesRecipes: action.payload
-                  }
+                        favouritesRecipes: action.payload,
+                  };
             case DELETE_FAVOURITE_RECIPE:
                   return {
                         ...state,
-                        favouritesRecipes: action.payload
-                  }
+                        favouritesRecipes: action.payload,
+                  };
+            case GET_RECIPES_BY_COUNTRIES:
+                  return {
+                        ...state,
+                        recipesByCountries: action.payload,
+                  };
             case SET_START_SPINNER:
                   return {
                         ...state,
-                        spinnerStatus: true
-                  }
+                        spinnerStatus: true,
+                  };
             case SET_STOP_SPINNER:
                   return {
                         ...state,
-                        spinnerStatus: false
-                  }
+                        spinnerStatus: false,
+                  };
             case VIEW_PERSONAL_SHOPPING_LIST:
                   return {
-                        viewPersonalShoppingList: 'flex'
-                  }
+                        viewPersonalShoppingList: "flex",
+                  };
             case VIEW_BUTTON_PERSONAL_SHOPPING_LIST:
                   return {
-                        viewButtonPersonalShoppingList: 'none'
-                  }
+                        viewButtonPersonalShoppingList: "none",
+                  };
             default:
                   return state;
       }

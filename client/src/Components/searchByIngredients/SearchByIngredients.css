@@ -1,7 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Oleo+Script&family=Oswald&family=Raleway&family=Roboto&display=swap");
+
 .containerSearchByIngredients {
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding-top: 5vw;
+      min-height: 97.6vh;
       height: 100%;
       background-image: url("../../Assets/Home/HomeBackground.png");
 }
@@ -28,6 +32,27 @@
       height: 3vw;
       width: 10vw;
       background-color: white;
+      font-family: Raleway;
+      border-radius: 0 1vw 0 0;
+      transition: 300ms;
+}
+.buttonSearchByIngredients:hover{
+      background-color: #df807f;
+      transition: 300ms;
+}
+
+.headerPageSearchByIngredientContainer{
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: flex-end;
+}
+
+.buttonGoBackPageSearch{
+      width: 3vw;
+      cursor: pointer;
+      position: relative;
+      left: -15vw;
 }
 
 /* ---------------------------------------------------------------------------------------------- */
