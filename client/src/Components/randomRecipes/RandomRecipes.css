@@ -3,6 +3,7 @@
 .randomRecipesContainer {
       display: flex;
       width: 95%;
+      height: 100%;
       margin-left: 3vw;
       justify-content: space-between;
       align-items: center;

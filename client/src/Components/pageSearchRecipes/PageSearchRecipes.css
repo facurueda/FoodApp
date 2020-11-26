@@ -1,0 +1,17 @@
+.pageSearchRecipesContainer{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5vw;
+}
+.bodySearchRecipeContainer{
+      z-index: 1;
+      position: relative;
+      top: -20vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+}

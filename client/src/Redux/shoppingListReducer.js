@@ -1,12 +1,14 @@
 import {
       GET_ALL_SHOPPINT_LIST,
-      ADD_PERSONAL_SHOPPING_LIST,
       MARKED_INGREDIENT_PERSONAL_SHOPPING_LIST,
+      DELETE_SHOPPING_LIST,
+      ADD_ELEMENT_PERSONAL_SHOPPING_LIST,
+      DELETE_ELEMENT_PERSONAL_SHOPPING_LIST,
 } from "./constants";
 
 const initialState = {
       allShoppingList: [],
-      personalShoppingList: []
+      personalShoppingList: [],
 };
 
 const shoppingListReducer = (state = initialState, action) => {
@@ -16,20 +18,38 @@ const shoppingListReducer = (state = initialState, action) => {
                         ...state,
                         allShoppingList: action.payload,
                   };
-            case ADD_PERSONAL_SHOPPING_LIST:
+            case DELETE_SHOPPING_LIST:
                   return {
                         ...state,
-                        personalShoppingList: state.personalShoppingList.concat(
-                              action.payload
+                        allShoppingList: action.payload,
+                  };
+            case ADD_ELEMENT_PERSONAL_SHOPPING_LIST:
+                  return {
+                        ...state,
+                        personalShoppingList: [
+                              ...state.personalShoppingList,
+                              action.payload,
+                        ],
+                  };
+            case DELETE_ELEMENT_PERSONAL_SHOPPING_LIST:
+                  return {
+                        ...state,
+                        personalShoppingList: state.personalShoppingList.filter(
+                              (e, index) =>
+                                    index !=
+                                    action.payload
                         ),
                   };
             case MARKED_INGREDIENT_PERSONAL_SHOPPING_LIST:
-                  let aux = [...state.personalShoppingList]
-                  aux[action.payload] = {...aux[action.payload], isCompleted:  !aux[action.payload].isCompleted}
+                  let aux = [...state.personalShoppingList];
+                  aux[action.payload] = {
+                        ...aux[action.payload],
+                        isCompleted: !aux[action.payload].isCompleted,
+                  };
                   return {
                         ...state,
-                        personalShoppingList: aux
-                  }
+                        personalShoppingList: aux,
+                  };
             default:
                   return state;
       }

@@ -11,14 +11,14 @@ import {
       GET_FAVOURITES_RECIPES,
       DELETE_FAVOURITE_RECIPE,
       SET_START_SPINNER,
-      GET_MORE_RECIPES,
       SET_STOP_SPINNER,
       VIEW_PERSONAL_SHOPPING_LIST,
       VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
       GET_RECIPES_BY_COUNTRIES,
       ACTION_CLEAN_RECIPE,
+      ACTION_ADD_INGREDIENT_TO_LIST,
+      SEARCH_RECIPE,
 } from "./constants";
-import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 var qs = require("qs");
@@ -29,7 +29,6 @@ const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
 
 const URL = "http://localhost:5000/";
 
-// FUNCTION TO GET ALEATORY RECIPES
 export const actionGetAleatoryRecipes = () => {
       return (dispatch) => {
             var config = {
@@ -59,10 +58,9 @@ export const actionGetRecipesByIngredients = (ingredients) => {
                         payload: res.data,
                   });
                   dispatch({
-                        type: SET_STOP_SPINNER
-                  })
-            })
-
+                        type: SET_STOP_SPINNER,
+                  });
+            });
       };
 };
 
@@ -75,25 +73,53 @@ export const actionGetRecipeToShowByIngredients = (id) => {
                   data: data,
             };
             axios(config).then((res) => {
-                  console.log("respuesta", res);
                   dispatch({
                         type: GET_RECIPE_BY_INGREDIENTS,
                         payload: res.data,
                   });
                   dispatch({
-                        type: SET_STOP_SPINNER
-                  })
-            })
+                        type: SET_STOP_SPINNER,
+                  });
+            });
+      };
+};
+
+export const actionSearchRecipes = (input) => {
+      return (dispatch) => {
+            var data = qs.stringify({ input });
+            var config = {
+                  method: "post",
+                  url: URL + "recipes/search",
+                  data: data,
+            };
+            axios(config).then((res) => {
+                  dispatch({
+                        type: SEARCH_RECIPE,
+                        payload: res.data.results,
+                  });
+                  dispatch({
+                        type: SET_STOP_SPINNER,
+                  });
+            });
       };
 };
 
 export const actionCleanState = () => {
       return (dispatch) => {
             dispatch({
-                  type: ACTION_CLEAN_RECIPE
-            })
-      }
-}
+                  type: ACTION_CLEAN_RECIPE,
+            });
+      };
+};
+
+export const actionAddIngredientToList = (ingredient) => {
+      return (dispatch) => {
+            dispatch({
+                  type: ACTION_ADD_INGREDIENT_TO_LIST,
+                  payload: ingredient,
+            });
+      };
+};
 
 export const actionDeleteIngredientsAndRecipes = () => {
       return (dispatch) => {
@@ -147,15 +173,14 @@ export const actionGetRecipesByCountries = (country) => {
                   data: data,
             };
             axios(config).then((res) => {
-                  console.log("respuesta", res);
                   dispatch({
                         type: GET_RECIPES_BY_COUNTRIES,
                         payload: res.data.results,
                   });
                   dispatch({
                         type: SET_STOP_SPINNER,
-                  })
-            })
+                  });
+            });
       };
 };
 
@@ -188,7 +213,6 @@ export const actionAddRecipeToFavourites = (
                   recipeName,
                   mailUser,
             });
-            console.log("data", data);
             var config = {
                   method: "POST",
                   url: URL + "recipes/addFavourites",
@@ -198,36 +222,26 @@ export const actionAddRecipeToFavourites = (
                   data: data,
             };
             axios(config).then((res) => {
-                  console.log('respADD', res)
-
-                  if(res.data === 'Created'){
-                        toast.success(
-                              "Recipe Added to Favourites",
-                              {
-                                    position:
-                                          "top-center",
-                                    autoClose: 3000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                              }
-                        );
-                  } else if(res.data === 'Duplicated'){
-                        toast.error(
-                              "You Already Have This Recipe",
-                              {
-                                    position:
-                                          "top-center",
-                                    autoClose: 3000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                              }
-                        );
+                  if (res.data === "Created") {
+                        toast.success("Recipe Added to Favourites", {
+                              position: "top-center",
+                              autoClose: 3000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                        });
+                  } else if (res.data === "Duplicated") {
+                        toast.error("You Already Have This Recipe", {
+                              position: "top-center",
+                              autoClose: 3000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                        });
                   }
             });
       };
@@ -251,7 +265,7 @@ export const actionGetActionRecipes = (email) => {
                   });
             });
       };
-}
+};
 
 export const actionDeleteFavouriteRecipe = (recipeId, email) => {
       return (dispatch) => {
@@ -268,23 +282,19 @@ export const actionDeleteFavouriteRecipe = (recipeId, email) => {
                   dispatch({
                         type: DELETE_FAVOURITE_RECIPE,
                         payload: res.data,
-                  })
-                  toast.success(
-                        "Recipe Deleted",
-                        {
-                              position:
-                                    "top-center",
-                              autoClose: 3000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                        }
-                  );
+                  });
+                  toast.success("Recipe Deleted", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                  });
             });
       };
-}
+};
 
 export const actionStartSpinner = () => {
       return (dispatch) => {
@@ -292,8 +302,7 @@ export const actionStartSpinner = () => {
                   type: SET_START_SPINNER,
             });
       };
-}
-
+};
 
 ///////////////////////// LOGOUT
 
@@ -302,48 +311,24 @@ export const actionLogout = () => {
             var config = {
                   withCredentials: true,
                   method: "get",
-                  url: 'https://henryproject.us.auth0.com/v2/logout',
+                  url: "https://henryproject.us.auth0.com/v2/logout",
             };
-            axios(config)
-      }
-}
+            axios(config);
+      };
+};
 
 export const actionViewPersonalShoppingList = () => {
       return (dispatch) => {
             dispatch({
-                  type: VIEW_PERSONAL_SHOPPING_LIST
-            })
-      }
-}
+                  type: VIEW_PERSONAL_SHOPPING_LIST,
+            });
+      };
+};
 
 export const actionViewButtonPersonalShoppingList = () => {
       return (dispatch) => {
             dispatch({
-                  type: VIEW_BUTTON_PERSONAL_SHOPPING_LIST
-            })
-      }
-}
-
-
-
-
-// export const actionDeleteUser = (user) => {
-//       return (dispatch) => {
-//         var data = qs.stringify(user);
-//         var config = {
-//           withCredentials: true,
-//           method: "DELETE",
-//           url: "http://localhost:3000/user/" + user.idUser,
-//           headers: {
-//             "Content-Type": "application/x-www-form-urlencoded",
-//           },
-//           data: data,
-//         };
-//         axios(config).then(() => {
-//           dispatch({
-//             type: DELETE_USER,
-//           });
-//           return dispatch(actionGetUsers());
-//         });
-//       };
-//     };
+                  type: VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
+            });
+      };
+};

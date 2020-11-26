@@ -1,10 +1,9 @@
 .homeContainer {
       background-image: url(../../Assets/Home/HomeBackground.png);
-      background-size: 125vw;
-      background-repeat: no-repeat;
+      background-size: 500vw;
       display: flex;
       flex-direction: column;
-      height: 100%;
+      min-height: 94vh;
       width: 100%;
       justify-content: center;
       align-items: center;

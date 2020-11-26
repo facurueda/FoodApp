@@ -8,14 +8,14 @@ const { ShoppingLists, Users } = require("../db.js");
 server.post("/Create", async (req, res) => {
       const { userEmail, recypeByIngredients } = req.body;
 
-      console.log('body',req.body)
+      console.log("body", req.body);
 
       Users.findOne({
             where: {
                   email: userEmail,
             },
       }).then((user) => {
-            console.log('user', user)
+            console.log("user", user);
             ShoppingLists.create({
                   name: recypeByIngredients.title,
                   checked: false,
@@ -34,16 +34,44 @@ server.post("/GetAll", async (req, res) => {
             where: {
                   email: userEmail,
             },
-      }).then( user => {
-            return ShoppingLists.findAll({
-                  where: {
-                        id: user.id
-                  }
+      })
+            .then((user) => {
+                  return ShoppingLists.findAll({
+                        where: {
+                              id: user.id,
+                        },
+                  });
             })
-      }).then( allSL => {
-            res.send(allSL);
-      });
+            .then((allSL) => {
+                  res.send(allSL);
+            });
+});
 
+server.delete("/Delete", (req, res) => {
+
+      const {userEmail, idShoppingList} = req.body
+
+      ShoppingLists.destroy({
+            where: {
+                  idShoppingList: idShoppingList
+            },
+      }).then((e) => {
+            Users.findOne({
+                  where: {
+                        email: userEmail,
+                  },
+            })
+                  .then((user) => {
+                        return ShoppingLists.findAll({
+                              where: {
+                                    id: user.id,
+                              },
+                        });
+                  })
+                  .then((allSL) => {
+                        res.send(allSL);
+                  });
+      });
 });
 
 module.exports = server;

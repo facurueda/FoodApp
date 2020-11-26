@@ -1,6 +1,4 @@
 import {
-      DELETE_BLUR,
-      DISPLAY_NONE_BUTTON_BLUR,
       GET_ALEATORY_RECIPES,
       GET_RECIPES_BY_INGREDIENTS,
       GET_SEARCH_PRODUCTS,
@@ -15,6 +13,8 @@ import {
       VIEW_BUTTON_PERSONAL_SHOPPING_LIST,
       GET_RECIPES_BY_COUNTRIES,
       ACTION_CLEAN_RECIPE,
+      ACTION_ADD_INGREDIENT_TO_LIST,
+      SEARCH_RECIPE,
 } from "./constants";
 
 const initialState = {
@@ -22,15 +22,16 @@ const initialState = {
       searchProducts: [],
       productsInFridge: [],
       recipesByIngredients: [],
+      recipesBySearch: [],
+      listIngredientToSearch: [],
       recipeToShow: [],
-      randomRecipesBlur: "setBlur",
-      buttonBlurDisplay: "buttonAleatoryRecipes",
       nutritionalInfo: [],
       favouritesRecipes: [],
       recipesByCountries: [],
       spinnerStatus: false,
       viewPersonalShoppingList: "none",
       viewButtonPersonalShoppingList: "flex",
+
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -54,27 +55,28 @@ const recipesReducer = (state = initialState, action) => {
                   return {
                         ...state,
                         recipesByIngredients: [],
+                        listIngredientToSearch: []
                   };
+            case SEARCH_RECIPE:
+                  return {
+                        ...state,
+                        recipesBySearch: action.payload
+                  }
             case GET_SEARCH_PRODUCTS:
                   return {
                         ...state,
                         searchProducts: action.payload,
                   };
-            case DELETE_BLUR:
+            case ACTION_ADD_INGREDIENT_TO_LIST:
                   return {
                         ...state,
-                        randomRecipesBlur: "randomRecipesContainer",
-                  };
+                        listIngredientToSearch : [...state.listIngredientToSearch, action.payload]
+                  }
             case ACTION_CLEAN_RECIPE:
                   return {
                         ...state,
                         recipeToShow: []
                   }
-            case DISPLAY_NONE_BUTTON_BLUR:
-                  return {
-                        ...state,
-                        buttonBlurDisplay: "buttonDisplayNone",
-                  };
             case GET_NUTRITIONAL_INFO:
                   return {
                         ...state,
@@ -107,10 +109,12 @@ const recipesReducer = (state = initialState, action) => {
                   };
             case VIEW_PERSONAL_SHOPPING_LIST:
                   return {
+                        ...state,
                         viewPersonalShoppingList: "flex",
                   };
             case VIEW_BUTTON_PERSONAL_SHOPPING_LIST:
                   return {
+                        ...state,
                         viewButtonPersonalShoppingList: "none",
                   };
             default:

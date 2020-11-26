@@ -50,6 +50,18 @@ server.get("/random/:typeRecipe", CACHE, async (req, res) => {
       }
 });
 
+server.post('/search', async (req, res) => {
+      const {input} = req.body;
+
+      const response = await fetch(
+            `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY}&query=${input}&number=80`
+      );
+
+      const data = await response.json();
+
+      res.send(data);
+})
+
 server.post("/search/:byIngredients", async (req, res) => {
       // QUITE EL CACHE PORQUE SI NO NO FUNCIONA!
 

@@ -1,0 +1,35 @@
+.recipeShoppingListContainer{
+      width: 25vw;
+}
+.nameShoppingList1{
+      width: 90%;
+      text-align: center;
+      position: relative;
+      right: -1vw;
+      color: white;
+      padding-top: .5vw;
+      font-weight: 500;
+      font-size: 2vw;
+      font-family: Lato;
+}
+.elementPersonalShoppingListContainer{
+      display: flex;
+}
+.nameAndButtonDeleteContainer{
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+}
+.aButtonDeleteRecipeShoppingList{
+      width: 10%;
+      display: flex;
+      align-self: flex-start;
+      position: relative;
+      right: -2.5vw;
+      top:-1vw
+}
+.buttonDeleteRecipeShoppingList{
+      width: 4vw;
+      height: 100%;
+}
