@@ -13,7 +13,7 @@ server.use(cors());
 server.use(logger("dev"));
 
 server.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+      res.header("Access-Control-Allow-Origin", "*"); 
       res.header("Access-Control-Allow-Credentials", "true");
       res.header(
             "Access-Control-Allow-Headers",
@@ -24,20 +24,6 @@ server.use((req, res, next) => {
       if (req.methods === "OPTIONS") return res.send("ok");
       next();
 });
-
-////////////  -------------------- PARA HABILITAR PASSPORT.JS
-
-// server.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: false
-// }))
-// server.use(passport.initialize())
-// server.use(passport.session())
-// server.use(flash())
-
-
-////////////  --------------------
 
 server.use("/", routes);
 

@@ -63,8 +63,6 @@ server.post('/search', async (req, res) => {
 })
 
 server.post("/search/:byIngredients", async (req, res) => {
-      // QUITE EL CACHE PORQUE SI NO NO FUNCIONA!
-
       try {
             const { byIngredients } = req.params;
 
@@ -241,26 +239,5 @@ server.delete("/deleteFavouriteRecipe", (req, res) => {
             });
       });
 });
-
-// server.post("/", async (req, res) => {
-//       const myUser = new User(req.body)
-//       await myUser.save();
-//       res.send(myUser)
-//       console.log("ENTRO");
-// });
-
-// server.get("/randomRecipes", cache, (req, res) => {
-//       var config = {
-//             method: "get",
-//             url: `https://api.spoonacular.com/recipes/random?apiKey=${APIKEY}&number=4`,
-//             headers: {
-//                   Cookie:
-//                         "__cfduid=d68bdc4452e6af9f5c2f2e24fad7607e41602855582",
-//             },
-//       };
-//       axios(config).then((response) => {
-//             res.send(response.data);
-//       });
-// });
 
 module.exports = server;

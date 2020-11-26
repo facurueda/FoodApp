@@ -1,8 +1,4 @@
 const server = require("express").Router();
-const redis = require("redis");
-const fetch = require("node-fetch");
-const axios = require("axios");
-const Sequelize = require("sequelize");
 const { ShoppingLists, Users } = require("../db.js");
 
 server.post("/Create", async (req, res) => {
