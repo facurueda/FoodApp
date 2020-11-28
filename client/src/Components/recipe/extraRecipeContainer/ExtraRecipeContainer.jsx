@@ -9,12 +9,14 @@ import { useDispatch } from "react-redux";
 import { actionSendDataShoppingList } from "../../../Redux/shoppingListActions";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { actionGetNutritionalInfo } from "../../../Redux/recipesActions";
 
 const ExtraRecipeContainer = (props) => {
       toast.configure();
       const dispatch = useDispatch();
       const { recipeByIngredient, closeModal } = props;
       const { user, isAuthenticated } = useAuth0();
+      dispatch(actionGetNutritionalInfo(recipeByIngredient.id))
 
       return (
             <div className="recipeExtras">

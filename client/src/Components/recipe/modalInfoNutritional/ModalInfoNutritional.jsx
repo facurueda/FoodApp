@@ -7,13 +7,10 @@ import ProteinIcon from "../../../Assets/Nutrition/protein.svg";
 import { useSelector } from 'react-redux';
 
 const ModalInfoNutritional = (props) => {
-
       const {modalState, closeModal} = props;
-
       const information = useSelector(
             (state) => state.recipesReducer.nutritionalInfo
       );
-
       return (
             <MDBModal isOpen={modalState} toggle={closeModal} centered>
                         <MDBModalHeader toggle={closeModal}>

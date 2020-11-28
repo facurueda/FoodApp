@@ -1,0 +1,8 @@
+.iconDeleteFavouriteRecipe{
+      width: 3vw;
+      z-index: 5;
+      float: right;
+      position: relative;
+      top: -14vw;
+      right: -1vw;
+}

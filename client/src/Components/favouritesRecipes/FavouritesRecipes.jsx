@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import ProductCardRecipe from "../productCardRecipe/ProductCardRecipe";
 
 const FavouritesRecipes = () => {
-
       const favourites = useSelector(
             (state) => state.recipesReducer.favouritesRecipes
       );
@@ -38,9 +37,23 @@ const FavouritesRecipes = () => {
                   <div className="favouritesRecipesContainer">
                         {favourites.length > 0
                               ? favourites.map((recipe) => {
+                                      console.log("this", recipe.favourites[0]);
                                       return (
                                             <ProductCardRecipe
-                                                  recipe={recipe}
+                                                  recipe={{
+                                                        id:
+                                                              recipe
+                                                                    .favourites[0]
+                                                                    .idRecipe,
+                                                        image:
+                                                              recipe
+                                                                    .favourites[0]
+                                                                    .imageUrl,
+                                                        title:
+                                                              recipe
+                                                                    .favourites[0]
+                                                                    .recipeName,
+                                                  }}
                                             />
                                       );
                                 })

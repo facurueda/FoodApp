@@ -1,8 +1,5 @@
 const server = require("express").Router();
-const redis = require("redis");
 const fetch = require("node-fetch");
-const axios = require("axios");
-const Sequelize = require("sequelize");
 const {
       FavouritesRecipes,
       Inter_Fav_Recipes,
@@ -10,39 +7,17 @@ const {
       Users,
 } = require("../db.js");
 
-const REDIS_PORT = process.env.PORT || 6379;
-
-const client = redis.createClient(REDIS_PORT);
-
 const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
 
-const CACHE = (req, res, next) => {
-      const KEY = Object.values(req.params)[0];
 
-      client.get(KEY, (err, data) => {
-            if (err) throw "errr";
-
-            if (data !== null) {
-                  res.send(data);
-            } else {
-                  next();
-            }
-      });
-};
-
-server.get("/random/:typeRecipe", CACHE, async (req, res) => {
+server.get("/random/:typeRecipe", async (req, res) => {
       try {
-            console.log("Fetching Data...");
-
-            const { typeRecipe } = req.params;
 
             const response = await fetch(
                   `https://api.spoonacular.com/recipes/random?apiKey=${APIKEY}&number=8`
             );
 
             const data = await response.json();
-
-            client.setex(typeRecipe, 600, JSON.stringify(data));
 
             res.send(data);
       } catch (err) {
@@ -64,7 +39,6 @@ server.post('/search', async (req, res) => {
 
 server.post("/search/:byIngredients", async (req, res) => {
       try {
-            const { byIngredients } = req.params;
 
             const { ingredients } = req.body;
 
@@ -74,9 +48,6 @@ server.post("/search/:byIngredients", async (req, res) => {
 
             const data = await response.json();
 
-            console.log('DATA', data)
-
-            client.setex(byIngredients, 3600, JSON.stringify(data));
 
             res.send(data);
       } catch (err) {
@@ -134,7 +105,6 @@ server.post("/addFavourites", async (req, res) => {
                   },
             }).then((inter) => {
                   if (inter.length > 0) {
-                        console.log('DUPLICATED')
                   } else {
                         return FavouritesRecipes.create({
                               id: user.id,
@@ -193,6 +163,7 @@ server.post("/getFavouritesRecipes", (req, res) => {
                         },
                   ],
             }).then((favRec) => {
+                  console.log(favRec)
                   res.send(favRec);
             });
       });

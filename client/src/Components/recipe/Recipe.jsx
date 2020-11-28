@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Recipe.css";
 import TopRecipe from "../../Assets/Home/top-receta.svg";
 import buttonGoBack from "../../Assets/Home/reply.svg";
@@ -20,6 +20,7 @@ const Recipe = () => {
       };
       const imageBackgroundTop = recipeByIngredient.image;
       const history = useHistory();
+
       return (
             <div className="fullRecipeContainer">
                   <div className="topRecipe">

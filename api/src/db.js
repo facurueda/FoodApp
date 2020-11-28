@@ -4,11 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB } = process.env;
 const sequelize = new Sequelize(
-      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB}`,
-      {
-            logging: false, 
-            native: false, 
-      }
+          `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB}`
 );
 const basename = path.basename(__filename);
 const modelDefiners = [];
@@ -45,15 +41,15 @@ Users.hasMany(FavouritesRecipes, {
 FavouritesRecipes.belongsToMany(Recipes, {
       through: "Inter_Fav_Recipes",
       foreignKey: "idFavouriteRecipe",
-      as: 'favourites'
+      as: "favourites",
 });
 Recipes.belongsToMany(FavouritesRecipes, {
       through: "Inter_Fav_Recipes",
       foreignKey: "idRecipe",
-      as: 'recipes',
+      as: "recipes",
 });
 
 module.exports = {
-      ...sequelize.models, 
-      conn: sequelize, 
+      ...sequelize.models,
+      conn: sequelize,
 };

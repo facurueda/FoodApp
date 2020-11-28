@@ -23,15 +23,11 @@ const InstructionContainer = (props) => {
                               </div>
                         ) : (
                               <div>
-                                    No have Instruction, please visit this
-                                    <a src={recipeByIngredient.sourceUrl}>
+                                    {'No have Instruction, please visit this '} 
+                                    <a href={recipeByIngredient.sourceUrl}>
                                           Link
                                     </a>
                               </div>
-                              // <div
-                              //       className="fullRecipePreparation"
-                              //       dangerouslySetInnerHTML={test()}
-                              // />
                         )}
                   </div>
             </div>
