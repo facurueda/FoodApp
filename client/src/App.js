@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, HashRouter } from "react-router-dom";
 import Home from "./Components/home/Home";
 import SearchRecipesByIngredients from "./Components/searchByIngredients/SearchByIngredients";
 import Recipe from "./Components/recipe/Recipe";
@@ -19,7 +19,7 @@ import PageSearchRecipes from "./Components/pageSearchRecipes/PageSearchRecipes"
 function App() {
       return (
             <div className="divAppContainer">
-                  <Router>
+                  <HashRouter>
                         <Route
                               render={() => (
                                     <React.Fragment>
@@ -79,7 +79,7 @@ function App() {
                                     </React.Fragment>
                               )}
                         />
-                  </Router>
+                  </HashRouter>
             </div>
       );
 }

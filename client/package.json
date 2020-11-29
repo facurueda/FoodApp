@@ -1,6 +1,6 @@
 {
-      "homepage": "http://facurueda.github.io/",
-      "name": "client",
+      "homepage": "./",
+      "name": "foodapp",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
