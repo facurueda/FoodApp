@@ -3,7 +3,6 @@ html {
 }
 body {
       min-height: 100vh;
-      background: #f9efbb;
 }
 #root {
       min-height: 100vh;
@@ -20,5 +19,4 @@ main {
 }
 #nav-style {
       position: fixed;
-      background: #df807f;
 }
