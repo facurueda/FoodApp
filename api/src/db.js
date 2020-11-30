@@ -4,7 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB } = process.env;
 const sequelize = new Sequelize(
-          `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB}`
+      `postgres://facurueda:Gregorio!38644499@foodapp.covwwqu8cgki.us-east-1.rds.amazonaws.com:5432/foodapp`
+      //     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB}`
 );
 const basename = path.basename(__filename);
 const modelDefiners = [];

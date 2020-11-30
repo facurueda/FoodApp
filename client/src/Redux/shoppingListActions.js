@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 let qs = require("qs");
 toast.configure();
 
-const URL = "http://localhost:5000/";
+const URL = "https://arcane-stream-46327.herokuapp.com/";
 
 export const actionSendDataShoppingList = (userEmail, recypeByIngredients) => {
       return (dispatch) => {

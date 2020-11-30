@@ -27,7 +27,7 @@ axios.defaults.withCrendentails = true;
 
 const APIKEY = "871cc9ddc1ea4733830dd2c30e3d691a";
 
-const URL = "http://localhost:5000/";
+const URL = "https://arcane-stream-46327.herokuapp.com/";
 
 export const actionGetAleatoryRecipes = () => {
       return (dispatch) => {
