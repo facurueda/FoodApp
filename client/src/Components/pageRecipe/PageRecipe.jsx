@@ -2,14 +2,14 @@ import React from 'react';
 import SearchRecipesByIngredients from "../../Assets/Home/SearchRecipesByIngredients.png";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import American from '../../Assets/RecipesByCountry/American.jpeg'
+import American from '../../Assets/RecipesByCountry/American.jpg'
 import Chinese from '../../Assets/RecipesByCountry/Chinese.jpg'
 import European from '../../Assets/RecipesByCountry/European.jpg'
 import Indian from '../../Assets/RecipesByCountry/Indian.jpg'
 import Italian from '../../Assets/RecipesByCountry/Italian.jpg'
-import Japanese from '../../Assets/RecipesByCountry/Japanese.jpeg'
+import Japanese from '../../Assets/RecipesByCountry/Japanese.jpg'
 import LatinAmerican from '../../Assets/RecipesByCountry/LatinAmerican.jpg'
-import Mexican from '../../Assets/RecipesByCountry/Mexican.jpeg'
+import Mexican from '../../Assets/RecipesByCountry/Mexican.jpg'
 import './PageRecipe.css'
 import { actionGetRecipesByCountries, actionStartSpinner } from '../../Redux/recipesActions';
 const countries = [[American, 'American'], [Chinese, 'Chinese'], [European, 'European'], [Indian, 'Indian'], [Italian, 'Italian'], [Japanese, 'Japanese'], [LatinAmerican, 'Latin American'], [Mexican, 'Mexican']];
